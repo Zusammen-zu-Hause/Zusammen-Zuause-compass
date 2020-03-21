@@ -1,7 +1,7 @@
 import * as firebase from 'firebase';
 import 'firebase/database';
 
-import {Event, Category, Member} from "./model";
+import {Category, Event, Member} from "./model";
 import {firebaseConfig} from "/firebaseConfig";
 
 const CATEGORIES = "categories";
@@ -9,7 +9,16 @@ const MEMBERS = "members";
 const EVENTS = "events";
 
 
-
+/*
+ * Connection to the firebase database
+ * The database contains a collection categories.
+ * In it are all the different categories as documents.
+ * Each document has attributes like the type 'model/model.js/Category' and a subcollection events.
+ * In it are all the different events as documents.
+ * Each document has attributes like the type 'model/model.js/Event' and a subcollection members.
+ * In it are all the different members as documents.
+ * Each document has attributes like the type 'model/model.js/Event'.
+ * */
 export default class FirebaseConnector {
 
     database: firebase.firestore.Firestore = null;
@@ -25,6 +34,11 @@ export default class FirebaseConnector {
         }
     }
 
+    /*
+     * Creates a new category in the database.
+     * @category: is the category object.
+     *            Make sure that all properties have the correct type and are initialised or null.
+     * */
     createCategory(category: Category): boolean {
         let result = false;
         this.database
@@ -41,6 +55,12 @@ export default class FirebaseConnector {
         return result
     }
 
+    /*
+     * Creates a new event in the database under the specific category.
+     * @categoryName: is the name of the category.
+     * @event:        the event that should be created.
+     *                Make sure that all properties have the correct type and are initialised or null.
+     * */
     createEvent(categoryName: string, event: Event): boolean {
         let result = false;
         const members = event.members;
@@ -78,6 +98,13 @@ export default class FirebaseConnector {
         return result;
     }
 
+    /*
+     * Creates a new member in the database under the specific event.
+     * @categoryName: is the name of the category.
+     * @eventId:      is the id of the event.
+     * @member:       the member that should be created.
+     *                Make sure that all properties have the correct type and are initialised or null.
+     * */
     createMember(categoryName: string, eventId: string, member: { email: string, name: string }): boolean {
         console.log("Member!", member);
         let result = false;
@@ -98,6 +125,9 @@ export default class FirebaseConnector {
         return result;
     }
 
+    /*
+     * Returns all category names in the database.
+     * */
     getCategoryNames(): Array<String> {
         const categories = [];
         this.database
@@ -115,6 +145,10 @@ export default class FirebaseConnector {
         return categories;
     }
 
+    /*
+     * Returns all eventIds to a specific category in the database.
+     * @categoryName: is the name of the category.
+     * */
     getEventIds(categoryName: string): Array<String> {
         const events = [];
         this.database
@@ -134,6 +168,11 @@ export default class FirebaseConnector {
         return events;
     }
 
+    /*
+     * Returns all member-mails (they are the ids in the member collection) to a specific category in the database.
+     * @categoryName: is the name of the category.
+     * @eventId:      is the id of the event where the members are contained.
+     * */
     getMemberMails(categoryName: string, eventId: string): Array<String> {
         const memberIds = [];
 
@@ -156,7 +195,10 @@ export default class FirebaseConnector {
         return memberIds;
     }
 
-    //may return null if not exists and does not include events
+    /*
+     * Returns a specific category (without events) or null if the category does not exist.
+     * @categoryName: is the name of the category.
+     * */
     getCategory(categoryName: string): Category {
         let categorie = null;
         this.database
@@ -177,7 +219,11 @@ export default class FirebaseConnector {
         return categorie;
     }
 
-    //may return null if not exists and does not include members
+    /*
+      * Returns a specific event (without members) or null if the event does not exist.
+      * @categoryName: is the name of the category.
+      * @eventId:      is the id of the event.
+      * */
     getEvent(categoryName: string, eventId: string): Event {
         let event = null;
         this.database
@@ -200,7 +246,12 @@ export default class FirebaseConnector {
         return event;
     }
 
-    //may return null if not existing
+    /*
+     * Returns a specific member or null if the member does not exist.
+     * @categoryName: is the name of the category.
+     * @eventId:      is the id of the event.
+     * @eventId:      is the mail of the member.
+     * */
     getMember(categoryName: string, eventId: string, memberMail: string): Member {
         let member = null;
         this.database

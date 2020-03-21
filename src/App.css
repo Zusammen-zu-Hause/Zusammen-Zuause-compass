@@ -1,3 +1,76 @@
+* {
+    font-family: 'Baloo 2', 'Roboto', sans-serif !important;
+    --color-orange: #ff5c00;
+    --color-green: rgb(152, 202, 169);
+}
+
 .appbar-tile {
     flex-grow: 1
+}
+
+.detailview.container {
+    border: none;
+    border-radius: 0px;
+    background: #000000;
+    margin: auto;
+    align-items: center;
+    width: 90vw;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    padding: 0px;
+}
+
+.detailview.item {
+    border:  none;
+    border-radius: 0px;
+    background: #fff;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    margin: 0;
+    margin-top: 0px;
+}
+
+.detailview.title {
+    border: none;
+    background: var(--color-orange);
+    padding-bottom: 75px;
+}
+
+.detailview.close {
+    position: absolute;
+    right: calc(5vw - 60px / 2);
+    top: calc(2vh - 60px / 2);
+    width: 60px;
+    height: 60px;
+    margin: 0px;
+    padding: 0px;
+    background: var(--color-green);
+    color: #000;
+    border: none;
+}
+
+.detailview.mainname {
+    font-weight: 800;
+    font-size: 48px;
+    color: #fff;
+    line-height: 48px;
+}
+
+.detailview.name {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.detailview.description {
+    font-weight: 500;
+    font-size: 16px;
+    color: #222
+}
+
+.detailview.time {
+    font-weight: 600;
+    font-size: 24px;
+    color: var(--color-green);
 }

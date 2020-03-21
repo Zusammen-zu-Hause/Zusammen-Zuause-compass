@@ -8,6 +8,22 @@
     flex-grow: 1
 }
 
+
+/*
+body {
+    height: 98vh;
+    background: 
+        linear-gradient(
+          rgba(0, 0, 0, 0.7), 
+          rgba(0, 0, 0, 0.7)
+        ),
+        url(https://pixabay.com/get/52e9d5404a57ac14f6d1867dda6d367a1d3cd7ec55546c4870277fdc954ac65bbf/hands-4903050_1920.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow-x: hidden;
+}
+*/
+
 .detailview.container {
     border: none;
     border-radius: 0px;
@@ -30,6 +46,7 @@
     padding-top: 5px;
     margin: 0;
     margin-top: 0px;
+    overflow-wrap: break-word;
 }
 
 .detailview.title {
@@ -49,6 +66,10 @@
     background: var(--color-green);
     color: #000;
     border: none;
+}
+
+.detailview.close:hover {
+    background: rgb(176, 235, 196);
 }
 
 .detailview.mainname {
@@ -73,4 +94,32 @@
     font-weight: 600;
     font-size: 24px;
     color: var(--color-green);
+}
+
+.detailview.checkbox * {
+    color: var(--color-green);
+}
+  
+
+.detailview.sliderReached * {
+    background: var(--color-orange);
+}
+  
+
+.detailview.sliderReached .MuiLinearProgress-dashed {
+    background: #ffc29e;
+    animation: none;
+}
+
+.detailview.sliderNotReached * {
+    background: #888;
+    animation: none;
+}
+
+.detailview.sliderNotReached .MuiLinearProgress-bar2Buffer {
+    background: #aaa;
+}
+
+.detailview.sliderNotReached .MuiLinearProgress-dashed  {
+    background: #ccc;
 }

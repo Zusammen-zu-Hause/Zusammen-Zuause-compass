@@ -2,7 +2,7 @@ import * as firebase from 'firebase';
 import 'firebase/database';
 
 import {Category, Event, Member} from "./model";
-import {firebaseConfig} from "/firebaseConfig";
+import {firebaseConfig} from "../firebaseConfig";
 
 const CATEGORIES = "categories";
 const MEMBERS = "members";
@@ -158,6 +158,7 @@ export default class FirebaseConnector {
             .get()
             .then((success1) => {
                 success1.forEach((doc) => {
+                    console.log("Success getting event names: ", doc);
                     events.push(doc.id)
                 });
             })

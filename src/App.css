@@ -24,7 +24,7 @@
 }
 
 .search .search-box {
-    min-width: 500px;
+    width: 70%;
 }
 
 .search .overlay {
@@ -47,6 +47,12 @@
     margin: 20px;
 }
 
+.categories .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .categories .title {
     text-align: center;
     margin-bottom: 10px;
@@ -54,7 +60,8 @@
 }
 
 .category-card {
-    max-width: 400px;
+    margin: 10px;
+    min-width: 400px;
     height: 250px;
     background-position: center;
     background-repeat: no-repeat;

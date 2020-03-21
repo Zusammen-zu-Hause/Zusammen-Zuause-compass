@@ -71,7 +71,7 @@ class Home extends React.Component {
                 <div className="categories">
                     <Typography variant="h4" className="title">Kategorien</Typography>
                     { loadingCategories && <div className="center"><CircularProgress color="secondary" /></div> }
-                    
+                    <div  className="container">
                     { !loadingCategories && categories.map(category => {
                         return (
                             <CategoryCard 
@@ -83,7 +83,7 @@ class Home extends React.Component {
                                 />
                         )
                     })}
-                    
+                    </div>
                 </div>
             </>
         );

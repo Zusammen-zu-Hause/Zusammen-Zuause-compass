@@ -16,7 +16,8 @@ class Home extends React.Component {
         super(props);
         this.state = {
             loadingCategories: true,
-            categories: []
+            categories: [],
+            searchQuery: ''
         }
         this.firebaseConnector = new FirebaseConnector();
 
@@ -37,9 +38,15 @@ class Home extends React.Component {
         this.setState({loadingCategories: false, categories});
     }
 
+    handleChange = prop => event => {
+        this.setState({[prop]: event.target.value });
+    };
+
+
+
     render() {
         const { history } = this.props;
-        const { loadingCategories, categories } = this.state;
+        const { loadingCategories, categories, searchQuery } = this.state;
         return (
             <>
                 <AppBar position="static" className="appbar">
@@ -52,12 +59,14 @@ class Home extends React.Component {
                         <Button color="inherit" onClick={() => history.push('/account/register')}>Registrieren</Button>
                     </Toolbar>
                 </AppBar>
-                <div className="search center">
-                    <div className="title">
-                        <Typography variant="h4">Zusammen Begegnungen schaffen</Typography>
-                        <Typography variant="body1">Eine Treffpunkt für Gleichgesinnte zum kulturellen Austausch oder um einfach nur online ein Bier zu trinken</Typography>
+                <div className="search">
+                    <div className="overlay center">
+                        <div className="title">
+                            <Typography variant="h4">Zusammen Begegnungen schaffen</Typography>
+                            <Typography variant="body1">Eine Treffpunkt für Gleichgesinnte zum kulturellen Austausch oder um einfach nur online ein Bier zu trinken</Typography>
+                        </div>
+                        <TextField onChange={this.handleChange('searchQuery')} value={searchQuery} color="secondary" label="Suchen" variant="filled" className="search-box" />
                     </div>
-                    <TextField color="secondary" label="Suchen" variant="filled" className="search-box" />
                 </div>
                 <div className="categories">
                     <Typography variant="h4" className="title">Kategorien</Typography>
@@ -74,7 +83,6 @@ class Home extends React.Component {
                                 />
                         )
                     })}
-
                     
                 </div>
             </>

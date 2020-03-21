@@ -7,17 +7,20 @@
     font-family: 'Baloo 2', 'Roboto', cursive !important;
 }
 
-.search {
-    height: 450px;
-    background-image: url("https://cdn.discordapp.com/attachments/690930904557813811/690938478808268850/inclusion-2731343_1280_1.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+.center {
     display: flex;
     flex-direction: column;
     justify-content: center;
     background-color: white;
     align-items: center;
+}
+
+.search {
+    height: 450px;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/hackathon-zusammen-zuhause.appspot.com/o/public%2Fbook-cushion-decoration.jpg?alt=media");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .search .search-box {

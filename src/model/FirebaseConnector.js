@@ -128,20 +128,15 @@ export default class FirebaseConnector {
     /*
      * Returns all category names in the database.
      * */
-    getCategoryNames(): Array<String> {
+    async getCategoryNames(): Array<String> {
         const categories = [];
-        this.database
-            .collection(CATEGORIES)
-            .get()
-            .then((success1) => {
-                success1.forEach((doc) => {
-                    categories.push(doc.id)
-                });
-            })
-            .catch((error) => {
-                console.error("Error getting categorie names: ", error);
-            });
-        console.log("Success getting categorie names: ", categories);
+        try {
+            const success1 = await this.database.collection(CATEGORIES).get()
+            success1.forEach(doc => categories.push(doc.id));
+            console.log("Success getting categorie names: ", categories);
+        } catch (error) {
+            console.error("Error getting categorie names: ", error);
+        }
         return categories;
     }
 
@@ -200,23 +195,19 @@ export default class FirebaseConnector {
      * Returns a specific category (without events) or null if the category does not exist.
      * @categoryName: is the name of the category.
      * */
-    getCategory(categoryName: string): Category {
+    async getCategory(categoryName: string): Category {
         let categorie = null;
-        this.database
-            .collection(CATEGORIES)
-            .doc(categoryName)
-            .get()
-            .then((doc) => {
-                if (doc.exists) {
-                    categorie = doc.data();
-                    console.log("Success getting category ", categorie);
-                } else {
-                    console.error("No such category!", doc);
-                }
-            })
-            .catch((error) => {
-                console.error("Error getting category: ", error);
-            });
+        try {
+            const doc = await this.database.collection(CATEGORIES).doc(categoryName).get();
+            if (doc.exists) {
+                categorie = doc.data();
+                console.log("Success getting category ", categorie);
+            } else {
+                console.error("No such category!", doc);
+            }
+        } catch(error) {
+            console.error("Error getting category: ", error);
+        }
         return categorie;
     }
 

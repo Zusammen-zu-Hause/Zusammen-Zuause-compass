@@ -7,6 +7,7 @@
 .idea
 *.iml
 package-lock.json
+src/firebaseConfig.js
 
 # testing
 /coverage

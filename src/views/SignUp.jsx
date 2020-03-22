@@ -18,9 +18,9 @@ import {
     VisibilityOff
 } from '@material-ui/icons';
 
-import CategoriesView from '../../components/CategoriesView';
-import { register, getCurrentUser } from '../../model/firebase_auth';
-import { firebaseFirestore } from '../../model/firebase';
+import CategoriesView from '../components/CategoriesView';
+import { register, getCurrentUser } from '../model/firebase_auth';
+import { firebaseFirestore } from '../model/firebase';
 
 function getSteps() {
     return ['Perönliche Informationen', 'Kategorien', 'Fertig'];

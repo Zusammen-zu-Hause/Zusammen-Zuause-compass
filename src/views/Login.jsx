@@ -13,7 +13,7 @@ import {
     VisibilityOff
 } from '@material-ui/icons';
 
-import { login } from '../../model/firebase_auth';
+import { login } from '../model/firebase_auth';
 
 
 class Login extends React.Component {

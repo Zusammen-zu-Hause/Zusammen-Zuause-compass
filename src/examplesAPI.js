@@ -1,17 +1,7 @@
-import FirebaseConnector from "model/FirebaseConnector";
 import {Category, Event, Member} from "./model/model";
+import FirebaseConnector from "./model/FirebaseConnector";
 
-let db = null;
-db = new FirebaseConnector().createCategory(exampleCategory);
-db = new FirebaseConnector().createEvent("Kunstausstellungen", exampleEvent);
-db = new FirebaseConnector().createMember("Kunstausstellungen", "HGFVBNJKTFGHDMNBGYJK", exampleMember);
-//
-db = new FirebaseConnector().getCategoryNames();
-db = new FirebaseConnector().getEventIds("Kunstausstellungen");
-db = new FirebaseConnector().getMemberMails("Kunstausstellungen", "HGFVBNJKTFGHDMNBGYJK");
-//
-db = new FirebaseConnector().getCategory("Kunstausstellungen");
-db = new FirebaseConnector().getEvent("Kunstausstellungen", "HGFVBNJKTFGHDMNBGYJK");
+
 export const exampleEvent = new Event(
     "HGFVBNJKTFGHDMNBGYJK",
     {
@@ -39,15 +29,28 @@ export const exampleEvent = new Event(
 );
 
 
-db = new FirebaseConnector().getMember("Kunstausstellungen", "HGFVBNJKTFGHDMNBGYJK", "hans@hans.de");
 
 export const exampleCategory = new Category(
-    "Kunstausstellungen",
-    "http://link.de",
-    "path/to/img"
+    "kunst",
+    "Kunst",
+    "wwwn.kunst.de",
+    "wwwn.kuns.de/image/path"
 );
 
 export const exampleMember = new Member(
     "hans@hans.de",
     "hans Mueller"
 );
+
+let db = null;
+db = new FirebaseConnector().createCategory(exampleCategory);
+db = new FirebaseConnector().createEvent("kunst", exampleEvent);
+db = new FirebaseConnector().createMember("kunst", "HGFVBNJKTFGHDMNBGYJK", exampleMember);
+//
+db = new FirebaseConnector().getCategoryIds();
+db = new FirebaseConnector().getEventIds("kunst");
+db = new FirebaseConnector().getMemberMails("kunst", "HGFVBNJKTFGHDMNBGYJK");
+//
+db = new FirebaseConnector().getCategory("kunst");
+db = new FirebaseConnector().getEvent("kunst", "HGFVBNJKTFGHDMNBGYJK");
+db = new FirebaseConnector().getMember("kunst", "HGFVBNJKTFGHDMNBGYJK", "hans@hans.de");

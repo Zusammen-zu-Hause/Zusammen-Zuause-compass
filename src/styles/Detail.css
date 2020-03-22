@@ -1,18 +1,3 @@
-/* unimportant debug body-style, just for visualisation*/
-/* TODO: CHENGE THIS BEFORE PRODUCTION! */
-body {
-    height: 98vh;
-    background: 
-        linear-gradient(
-          rgba(0, 0, 0, 0.7), 
-          rgba(0, 0, 0, 0.7)
-        ),
-        url(https://cdn.discordapp.com/attachments/690829388308021268/690922728865398824/swimmer-1678307_1920.png);
-    background-size: cover;
-    background-repeat: no-repeat;
-    overflow-x: hidden;
-}
-
 .detailview.container {
     border: none;
     border-radius: 0px;

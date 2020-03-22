@@ -12,15 +12,15 @@ class Legal extends React.Component {
                 <NavBar history={history}/>
                 <Box component="span" m={1}>
                     <Container maxWidth="lg" //TODO change below to correct version
-                    >
+                    ><br />
                         <h1>Impressum</h1>
-                        Max Mustermann<p>Musterweg 23<br/>
-                        12345
-                        Musterhausen<br/>
-                        E-Mail e.muster@domain.de<br/>
-                        Tel 049-098-764512-0<br/>
-                        Fax 049-098-764512-99<br/></p><strong>
-                        Haftung für Inhalte</strong><p>
+                        Alexander Kutschera<br />
+                        Zennerstraße 34<br />
+                        81379 München
+
+                        E-Mail zusammenzuhause@hotmail.com<br/>
+                        Tel 049-176-20475<br/>
+                        <strong>Haftung für Inhalte</strong><p>
                         Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit,
                         Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.
                         Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten

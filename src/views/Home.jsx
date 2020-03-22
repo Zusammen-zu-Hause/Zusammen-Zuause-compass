@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import  {
     TextField,
     Typography
@@ -57,6 +58,9 @@ class Home extends React.Component {
                 <div className="categories">
                     <Typography variant="h4" className="title">Kategorien</Typography>
                     <CategoriesView onClick={category => history.push("/category/" + category)} />
+                </div>
+                <div className="categories center">
+                    <Link to="/legal" push="true">Impressum</Link>
                 </div>
             </>
         );

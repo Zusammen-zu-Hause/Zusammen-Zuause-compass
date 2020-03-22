@@ -52,7 +52,7 @@ export default class EventPanel extends React.Component<EventPanelProps, EventPa
 
     async getInstitutionName(): string {
         let institution: Institution = await this.db.getInstitution(this.props.event.institutionId);
-        this.setState({institution: institution.name});
+        this.setState({institution: ''});
     }
 
     render() {

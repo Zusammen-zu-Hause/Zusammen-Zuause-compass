@@ -81,20 +81,20 @@ export default class ListView extends React.Component<ListViewProps, ListViewSta
                 <NavBar history={this.props.history}/>
                 {this.state.loading && <LinearProgress />}
                 {!this.state.loading && <>
-                    <div className={"headerSection"}>
-                        <h2 className="headerCategory">
-                            {this.state.category.name}
-                        </h2>
-                        <Button className={"buttonRight"} variant="contained" onClick={this.handleFilterShow}>Filter</Button>
-                    </div>
-                    <FilterComponent visible={this.state.showFilterModal} dismissCallback={this.handleFilterDismiss}/>
-                    <div className={"eventPanels"}>
-                        {this.state.events.map(event => {
-                            return (
-                                <EventPanel key={uuid()} category={this.state.category} event={event} expanded={this.state.expandedPanel === event.id} callbackOnChange={this.changeExpandedPanel}/>
-                            );
-                        })}
-                    </div>
+                        <div className={"headerSection"}>
+                            <h2 className="headerCategory">
+                                {this.state.category.name}
+                            </h2>
+                            <Button className={"buttonRight"} variant="contained" onClick={this.handleFilterShow}>Filter</Button>
+                        </div>
+                        <FilterComponent visible={this.state.showFilterModal} dismissCallback={this.handleFilterDismiss}/>
+                        <div className={"eventPanels"}>
+                            {this.state.events.map(event => {
+                                return (
+                                    <EventPanel key={uuid()} category={this.state.category} event={event} expanded={this.state.expandedPanel === event.id} callbackOnChange={this.changeExpandedPanel}/>
+                                );
+                            })}
+                        </div>
                     </>
                 }
             </div>

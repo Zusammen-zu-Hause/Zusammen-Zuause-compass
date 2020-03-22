@@ -26,7 +26,7 @@ class NavBar extends React.Component {
         const { history } = this.props;
         const user = getCurrentUser();
         return (
-            <AppBar position="static" className="appbar">
+            <AppBar position="static" className="appbar" style={{position: "fixed", top: 0}}>
                 <Toolbar>
                     <Typography onClick={() => history.push('/')} variant="h6" className="title">
                         Zusammen zu Hause

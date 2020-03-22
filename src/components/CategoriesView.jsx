@@ -27,11 +27,11 @@ class CategoriesView extends React.Component {
     }
 
     async loadCategories() {
-        const categoryNames = await this.firebaseConnector.getCategoryNames();
+        const categoryIds = await this.firebaseConnector.getCategoryIds();
         const categories = [];
-        for (const categoryName of categoryNames) {
-            const category = await this.firebaseConnector.getCategory(categoryName);
-            category['id'] = categoryName;
+        for (const categoryId of categoryIds) {
+            const category = await this.firebaseConnector.getCategory(categoryId);
+            console.log("category ----------", category)
             categories.push(category);
         }
         this.setState({loadingCategories: false, categories});

@@ -29,10 +29,10 @@ class Home extends React.Component {
     }
 
     async loadCategories() {
-        const categoryNames = await this.firebaseConnector.getCategoryNames();
+        const categoryIds = await this.firebaseConnector.getCategoryIds();
         const categories = [];
-        for (const categoryName of categoryNames) {
-            const category = await this.firebaseConnector.getCategory(categoryName);
+        for (const categoryId of categoryIds) {
+            const category = await this.firebaseConnector.getCategory(categoryId);
             categories.push(category);
         }
         this.setState({loadingCategories: false, categories});

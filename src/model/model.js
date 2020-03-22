@@ -5,7 +5,7 @@ export class Event {
                 creationDate: string,
                 description: string,
                 financial: { mandatory: boolean, price: string },
-                institutionId: { id: string, path: string },
+                institutionId: string,
                 logoSrc: string,
                 memberCount: { min: number, max: number },
                 startDate: string,

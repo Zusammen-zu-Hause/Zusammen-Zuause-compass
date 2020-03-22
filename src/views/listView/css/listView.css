@@ -1,8 +1,7 @@
 .headerSection {
     width: 60%;
     margin-left: 20%;
-    margin-top: 15px;
-    position: fixed;
+    margin-top: 90px;
 }
 
 .buttonRight {
@@ -15,6 +14,9 @@
 }
 
 .eventPanels {
-    overflow: auto;
-    margin-top: 50px;
+    margin-top: 30px;
+}
+
+body {
+    overflow: auto!important;
 }

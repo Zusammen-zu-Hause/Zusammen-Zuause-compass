@@ -4,6 +4,7 @@ import Home from './views/Home';
 import Detail from './views/Detail';
 import ListView from "./views/listView/ListView";
 import Account from './views/account';
+import CreateEvent from './views/CreateEvent';
 import './App.css';
 import Legal from './views/Legal';
 import PrivacyPolicy from "./views/PrivacyPolicy";
@@ -42,6 +43,11 @@ function App() {
             <Route
                 path='/category/:categoryId'
                 component={LISTVIEW}
+            />
+            <Route
+                path='/new'
+                component={CreateEvent}
+                exact
             />
             <Route
                 component={Fallback}

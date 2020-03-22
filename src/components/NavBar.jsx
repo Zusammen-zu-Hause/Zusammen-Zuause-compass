@@ -31,7 +31,7 @@ class NavBar extends React.Component {
                     <Typography onClick={() => history.push('/')} variant="h6" className="title">
                         Zusammen zu Hause
                     </Typography>
-                    <Button color="secondary" variant="contained" onClick={() => history.push('/new')}>Erstelle ein Event</Button>
+                    <Button color="secondary" variant="contained" onClick={() => history.push('/create')}>Erstelle ein Event</Button>
                     { user ? (
                         <>
                             <IconButton color="inherit" onClick={() => history.push('/account/settings')}><Settings /></IconButton>

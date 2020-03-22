@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Home from './views/Home';
 import Detail from './views/Detail';
+import SignUp from './views/SignUp';
 import './App.css';
 
 function Fallback() {
@@ -20,9 +21,14 @@ function App() {
         component={Detail}
         exact
       />
+      <Route 
+        path='/account/signup' 
+        component={SignUp}
+        exact
+        />
       <Route
         component={Fallback}
-      />
+        />
     </Switch>
   );
 }

@@ -1,9 +1,6 @@
 import React from 'react';
 import  {
-    AppBar,
-    Button,
     TextField,
-    Toolbar,
     Typography
 } from '@material-ui/core';
 import CategoriesView from '../components/CategoriesView';
@@ -15,8 +12,6 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loadingCategories: true,
-            categories: [],
             searchQuery: ''
         }
         this.firebaseConnector = new FirebaseConnector();
@@ -46,24 +41,22 @@ class Home extends React.Component {
 
     render() {
         const { history } = this.props;
-        const { loadingCategories, categories, searchQuery } = this.state;
+        const { searchQuery } = this.state;
         return (
             <>
                 <NavBar history={history} />
                 <div className="search">
                     <div className="overlay center">
                         <div className="title">
-                            <Typography variant="h4">Zusammen Begegnungen schaffen</Typography>
-                            <Typography variant="body1">Eine Treffpunkt für Gleichgesinnte zum kulturellen Austausch oder um einfach nur online ein Bier zu trinken</Typography>
+                            <Typography variant="h3">Zusammen Begegnungen schaffen</Typography>
+                            <Typography variant="h6">Eine Treffpunkt für Gleichgesinnte zum kulturellen Austausch oder um einfach nur online ein Bier zu trinken</Typography>
                         </div>
                         <TextField onChange={this.handleChange('searchQuery')} value={searchQuery} color="secondary" label="Suchen" variant="filled" className="search-box" />
                     </div>
                 </div>
                 <div className="categories">
                     <Typography variant="h4" className="title">Kategorien</Typography>
-                    <CategoriesView 
-                        onClick={category => history.push("/category/" + category)}
-                        />
+                    <CategoriesView onClick={category => history.push("/category/" + category)} />
                 </div>
             </>
         );

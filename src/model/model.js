@@ -27,7 +27,6 @@ export class Event {
         this.members = members;
     }
 
-
 }
 
 export class Category {

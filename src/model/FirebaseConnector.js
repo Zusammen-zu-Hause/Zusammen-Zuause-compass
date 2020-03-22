@@ -45,7 +45,7 @@ export default class FirebaseConnector {
             console.log("Success creating category: ", success);
             result = true;
         } catch (error) {
-            console.error("Error writing category. Nothing changed: ", error);
+            console.error("Error writing category: ", error);
         }
         return result
     }
@@ -82,7 +82,6 @@ export default class FirebaseConnector {
             result = true
         } catch (error) {
             console.error("Error writing event: ", error);
-
         }
         return result;
     }
@@ -120,9 +119,9 @@ export default class FirebaseConnector {
         try {
             const success1 = await this.database.collection(CATEGORIES).get();
             success1.forEach(doc => categories.push(doc.id));
-            console.log("Success getting categorie names: ", categories);
+            console.log("Success getting category names: ", categories);
         } catch (error) {
-            console.error("Error getting categorie names: ", error);
+            console.error("Error getting category names: ", error);
         }
         return categories;
     }
@@ -152,7 +151,7 @@ export default class FirebaseConnector {
      * @categoryId: is the id of the category.
      * @eventId:      is the id of the event where the members are contained.
      * */
-    async getMemberMails(categoryId: string, eventId: string): Array<String> {
+    async getMemberMails(categoryId: string, eventId: string): Array<string> {
         const memberIds = [];
         try {
             let success = await this.database
@@ -177,19 +176,19 @@ export default class FirebaseConnector {
      * @categoryId: is the id of the category.
      * */
     async getCategory(categoryId: string): Category {
-        let categorie = null;
+        let category = null;
         try {
             const doc = await this.database.collection(CATEGORIES).doc(categoryId).get();
             if (doc.exists) {
-                categorie = doc.data();
-                console.log("Success getting category ", categorie);
+                category = doc.data();
+                console.log("Success getting category ", category);
             } else {
                 console.error("No such category!", doc);
             }
         } catch (error) {
             console.error("Error getting category: ", error);
         }
-        return categorie;
+        return category;
     }
 
     /*

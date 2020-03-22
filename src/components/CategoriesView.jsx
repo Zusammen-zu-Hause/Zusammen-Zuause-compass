@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import  {
     CircularProgress
 } from '@material-ui/core';
+import  {
+    Done
+} from '@material-ui/icons';
 import CategoryCard from '../components/CategoryCard';
 import FirebaseConnector from '../model/FirebaseConnector';
 
@@ -44,6 +47,7 @@ class CategoriesView extends React.Component {
     }
 
     render() {
+        const { selected } = this.props;
         const {loadingCategories, categories} = this.state;
         return (
             <>
@@ -54,7 +58,7 @@ class CategoriesView extends React.Component {
                             <CategoryCard 
                                 key={category.name}
                                 onClick={() => this.onClick(category.id)}
-                                title={category.name}
+                                title={selected.includes(category.id) ? <Done style={{ fontSize: 70 }} /> : category.name}
                                 image={category.image}
                                 />
                         )
@@ -65,8 +69,14 @@ class CategoriesView extends React.Component {
     }
 }
 
+CategoriesView.defaultProps = {
+    onClick: () => {},
+    selected: []
+}
+
 CategoriesView.propTypes = {
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    selected: PropTypes.arrayOf(PropTypes.string)
 }
 
 export default CategoriesView;

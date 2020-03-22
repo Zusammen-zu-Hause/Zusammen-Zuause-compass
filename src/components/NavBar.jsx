@@ -16,22 +16,19 @@ class NavBar extends React.Component {
             categories: [],
             searchQuery: ''
         }
-        this.user = getCurrentUser();
-
     }
 
     render() {
         const { history } = this.props;
-        const { user } = this.state;
-        console.log(user);
+        const user = getCurrentUser();
         return (
             <AppBar position="static" className="appbar">
                 <Toolbar>
                     <Typography variant="h6" className="title">
                         Zusammen zu Hause
                     </Typography>
-                    <Button color="secondary" variant="contained">Erstelle ein ZzH Event</Button>
-                    { user || (
+                    <Button color="secondary" variant="contained" onClick={() => history.push('/new')}>Erstelle ein Event</Button>
+                    { user ? <></> : (
                         <>
                             <Button color="inherit" onClick={() => history.push('/account/login')}>Login</Button>
                             <Button color="inherit" onClick={() => history.push('/account/signup')}>Registrieren</Button>

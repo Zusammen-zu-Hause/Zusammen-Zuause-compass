@@ -37,7 +37,7 @@ class CategoryCard extends React.Component {
     }
 }
 
-CategoryCard.deafultProps = {
+CategoryCard.defaultProps = {
     onClick: () => {}
 }
 

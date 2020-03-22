@@ -12,7 +12,6 @@ function Fallback() {
 }
 
 const DETAILVIEW = ({match}) => <Detail category={match.params.categoryId} eventID={match.params.eventId} />;
-const DETAILTEST = ({match}) => <Detail category={"Kunst"} eventID={"test"} />;
 
 function App() {
   return (
@@ -32,10 +31,6 @@ function App() {
       />
       <Route path='/category/:categoryId/event/:eventId'
         component={DETAILVIEW}
-        exact
-      />
-      <Route path='/detailtest'
-        component={DETAILTEST}
         exact
       />
       <Route 

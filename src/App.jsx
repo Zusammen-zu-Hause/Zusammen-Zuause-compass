@@ -4,6 +4,8 @@ import Home from './views/Home';
 import Detail from './views/Detail';
 import SignUp from './views/SignUp';
 import './App.css';
+import Legal from './views/Legal';
+import PrivacyPolicy from "./views/PrivacyPolicy";
 
 function Fallback() {
   return <Redirect to='/' push />;
@@ -15,6 +17,14 @@ function App() {
       <Route
         path='/'
         component={Home}
+        exact
+      />
+      <Route path='/legal'
+        component={Legal}
+        exact
+      />
+      <Route path='/legal/privacy-policy'
+        component={PrivacyPolicy}
         exact
       />
       <Route path='/detailtest'

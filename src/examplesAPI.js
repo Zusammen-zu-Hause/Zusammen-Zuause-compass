@@ -3,7 +3,7 @@ import {Category, Event, Member} from "./model/model";
 
 
 export const exampleEvent = new Event(
-    "HGFVBNJKTFGHDMNBGYJK",
+    "",
     {
         blind: true,
         childFriendly: true,
@@ -16,7 +16,7 @@ export const exampleEvent = new Event(
     "2020-03-20T17:00:00.00+01:00",
     "This is a example description",
     {price: "0", mandatory: false},
-    "Example Institution",
+    "YKZq9qQz8VjBOhW0Lidq",
     "src/logo",
     {min: 0, max: 20},
     "2020-04-20T17:00:00.00+01:00",

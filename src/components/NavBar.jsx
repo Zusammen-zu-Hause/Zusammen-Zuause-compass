@@ -2,9 +2,13 @@ import React from 'react';
 import  {
     AppBar,
     Button,
+    IconButton,
     Toolbar,
     Typography
 } from '@material-ui/core';
+import {
+    Settings
+} from '@material-ui/icons';
 import {getCurrentUser} from '../model/firebase_auth';
 
 class NavBar extends React.Component {
@@ -22,13 +26,18 @@ class NavBar extends React.Component {
         const { history } = this.props;
         const user = getCurrentUser();
         return (
-            <AppBar position="static" className="appbar">
+            <AppBar position="static" className="appbar" style={{position: "fixed", top: 0}}>
                 <Toolbar>
-                    <Typography variant="h6" className="title">
+                    <Typography onClick={() => history.push('/')} variant="h6" className="title">
                         Zusammen zu Hause
                     </Typography>
                     <Button color="secondary" variant="contained" onClick={() => history.push('/new')}>Erstelle ein Event</Button>
-                    { user ? <Button color="inherit" onClick={() => history.push('/account/logout')}>Logout</Button> : (
+                    { user ? (
+                        <>
+                            <IconButton color="inherit" onClick={() => history.push('/account/settings')}><Settings /></IconButton>
+                            <Button color="inherit" onClick={() => history.push('/account/logout')}>Logout</Button>
+                        </>
+                    ) : (
                         <>
                             <Button color="inherit" onClick={() => history.push('/account/login')}>Login</Button>
                             <Button color="inherit" onClick={() => history.push('/account/signup')}>Registrieren</Button>

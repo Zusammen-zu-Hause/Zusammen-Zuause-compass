@@ -43,7 +43,7 @@ function App() {
         component={LISTVIEW}
         />
       <Route
-        path='/create'
+        path='/new'
         component={CreateEvent}
         exact
       />

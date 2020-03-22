@@ -238,7 +238,6 @@ export default class FirebaseConnector {
                 .get();
             if (doc.exists) {
                 event = doc.data();
-                event.institution = event.institution.id;
                 event.id = doc.id;
                 console.log("Success getting doc ", doc);
             } else {

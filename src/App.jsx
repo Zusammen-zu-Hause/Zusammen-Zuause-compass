@@ -11,6 +11,9 @@ function Fallback() {
   return <Redirect to='/' push />;
 }
 
+const DETAILVIEW = ({match}) => <Detail category={match.params.categoryId} eventID={match.params.eventId} />;
+const DETAILTEST = ({match}) => <Detail category={"Kunst"} eventID={"test"} />;
+
 function App() {
   return (
     <Switch>
@@ -27,8 +30,12 @@ function App() {
         component={PrivacyPolicy}
         exact
       />
+      <Route path='/category/:categoryId/event/:eventId'
+        component={DETAILVIEW}
+        exact
+      />
       <Route path='/detailtest'
-        component={Detail}
+        component={DETAILTEST}
         exact
       />
       <Route 

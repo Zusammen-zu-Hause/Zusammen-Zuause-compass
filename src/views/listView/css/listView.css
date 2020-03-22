@@ -1,0 +1,14 @@
+.headerSection {
+    width: 60%;
+    margin-left: 20%;
+    margin-top: 15px;
+}
+
+.buttonRight {
+    display: inline;
+    float: right;
+}
+
+.headerCategory {
+    display: inline;
+}

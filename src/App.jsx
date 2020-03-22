@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Home from './views/Home';
 import Detail from './views/Detail';
+import ListView from "./views/listView/ListView";
 import SignUp from './views/SignUp';
 import Login from './views/Login';
 import './App.css';
@@ -10,7 +11,7 @@ import PrivacyPolicy from "./views/PrivacyPolicy";
 import { logout } from './model/firebase_auth';
 
 function Fallback() {
-  return <Redirect to='/' push />;
+    return <Redirect to='/' push />;
 }
 
 function Logout() {
@@ -20,7 +21,8 @@ function Logout() {
 
 function App() {
   const DETAILVIEW = ({match}) => <Detail category={match.params.categoryId} eventID={match.params.eventId} />;
-  
+  const LISTVIEW = (props) => <ListView categoryId={props.match.params.categoryId} history={props.history} />;
+      
   return (
     <Switch>
       <Route
@@ -54,6 +56,10 @@ function App() {
         path='/account/logout' 
         component={Logout}
         exact
+        />
+      <Route 
+        path='/category/:categoryId'
+        component={LISTVIEW}
         />
       <Route
         component={Fallback}

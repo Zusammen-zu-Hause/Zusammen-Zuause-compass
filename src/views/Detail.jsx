@@ -7,8 +7,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { Typography } from '@material-ui/core';
 import { Event } from '../model/model';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import '../styles/Detail.css';
 //import FirebaseConnector from "../model/FirebaseConnector";
-
 
 const containerClass = "detailview container";
 const itemClass = "detailview item";
@@ -25,6 +25,7 @@ const sliderReachedClass = "detailview sliderReached";
 const checkedBox = <Checkbox checked />;
 const uncheckedBox = <Checkbox />;
 
+// Demo Event TODO: CHANGE THIS TO USE ACTUAL EVENT!!
 const exev = new Event(
     "HGFVBNJKTFGHDMNBGYJK",
     "MegaEvent",
@@ -78,10 +79,11 @@ class Detail extends React.Component {
 
         return (
             <>
-                <Fab size="small" color="secondary" aria-label="add" className={closeClass}>
-                    <Typography>X</Typography>
-                </Fab>
+                
                 <Grid container className={containerClass} spacing={0}>
+                    <Fab size="small" color="secondary" aria-label="add" className={closeClass} onClick={this.closeHandler}>
+                        <Typography>X</Typography>
+                    </Fab>
                     <Grid item xs={12}>
                         <Paper className={titleClass}>
                             <Typography className={mainnameClass}>{event.name}</Typography>
@@ -122,6 +124,11 @@ class Detail extends React.Component {
                 </Grid>
             </>
         );
+    }
+
+    closeHandler() {
+        // TODO: close!
+        console.log('TODO: Close!!');
     }
 }
 

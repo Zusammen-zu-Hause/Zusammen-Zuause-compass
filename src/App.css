@@ -1,4 +1,11 @@
 * {
+    font-family: 'Baloo 2', 'Roboto', sans-serif !important;
+    --color-orange: #ff5c00;
+    --color-green: rgb(152, 202, 169);
+}
+
+.appbar-tile {
+    flex-grow: 1;
     font-family: 'Baloo 2', 'Roboto', cursive;
 }
 

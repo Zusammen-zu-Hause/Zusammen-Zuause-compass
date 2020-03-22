@@ -279,7 +279,6 @@ class CreateEvent extends React.Component {
                                         }
                                     </Select>
                                 </FormControl>
-                                <Typography>You should be able to choose an institution here, but ther is no possibility to do so right now.</Typography>
                                 <Button color="secondary" type="submit" variant="outlined" fullWidth className={"text-field " + buttonClass}>Weiter</Button>
                                 <Button color="secondary" variant="outlined" onClick={this.handleStep3back} fullWidth className={buttonClass}>Zurück</Button>
                             </form>

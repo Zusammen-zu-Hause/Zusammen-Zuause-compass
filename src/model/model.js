@@ -10,6 +10,8 @@ export class Event {
                 memberCount: { min: number, max: number },
                 startDate: string,
                 shortDescription: string,
+                isPublic: boolean,
+                eventLink: String,
                 title: string) {
         this.id = id; //is Id in database
         this.additional = additional;
@@ -23,6 +25,8 @@ export class Event {
         this.startDate = startDate;
         this.shortDescription = shortDescription;
         this.title = title;
+        this.isPublic = isPublic;
+        this.eventLink = eventLink;
     }
 
 }

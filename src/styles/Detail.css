@@ -1,3 +1,4 @@
+
 .detailview.container {
     border: none;
     border-radius: 0px;
@@ -6,7 +7,7 @@
     align-items: center;
     width: 90vw;
     max-width: 500px;
-    margin-top: 2vh;
+    margin-top: 3vh;
     margin-bottom: 2vh;
     padding: 0px;
     position: relative;
@@ -33,10 +34,10 @@
 
 .detailview.close {
     position: absolute;
-    right: -20px;
-    top: -20px;
-    width: 60px;
-    height: 60px;
+    right: -10px;
+    top: -10px;
+    width: 70px;
+    height: 70px;
     margin: 0px;
     padding: 0px;
     background: var(--color-green);
@@ -44,13 +45,30 @@
     border: none;
 }
 
-.detailview.close * {
-    font-size: 60px;
-    font-family: Arial, Helvetica, sans-serif;
+.detailview.closeicon {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    max-width: 80px;
+    max-height: 80px;
+    min-width: 80px;
+    min-height: 80px;
+    background: url(../views/Cross.png);
+    background-repeat: no-repeat;
+    background-size: 80px 80px;
+    background-position: center;
 }
 
 .detailview.close:hover {
     background: rgb(176, 235, 196);
+}
+
+.detailview.closeiconspace {
+    float: right;
+    width: 47px;
+    height: 47px;
+    padding: 0px;
+    margin: 0px;
 }
 
 .detailview.mainname {
@@ -103,4 +121,141 @@
 
 .detailview.sliderNotReached .MuiLinearProgress-dashed  {
     background: #ccc;
+}
+
+.detailview.button {
+    width: 100%;
+    background-color: var(--color-orange);
+    border-radius: 0px;
+    font-size: 40px;
+    line-height: 40px;
+    font-weight: bolder;
+    color: white;
+}
+
+.detailview.button:hover {
+    background-color: var(--color-green);
+    color: black;
+}
+
+.detailview.loading {
+    position: absolute;
+    width: 20vh;
+    height: 20vh;
+    min-width: 20vh;
+    min-height: 20vh;
+    max-width: 20vh;
+    max-height: 20vh;
+    left: calc(50% - 10vh);
+    top: calc(50% - 10vh);
+    color: var(--color-orange);
+}
+
+
+
+
+
+
+
+
+.bookingview.container {
+    border: none;
+    border-radius: 0px;
+    background: #000000;
+    margin: auto;
+    align-items: center;
+    width: 90vw;
+    max-width: 500px;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    padding: 0px;
+    position: relative;
+}
+
+.bookingview.item {
+    border:  none;
+    border-radius: 0px;
+    background: #fff;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    margin: 0;
+    margin-top: 0px;
+    overflow-wrap: break-word;
+}
+
+.bookingview.title {
+    border: none;
+    background: var(--color-orange);
+    padding-bottom: 75px;
+}
+
+.bookingview.close {
+    position: absolute;
+    right: -20px;
+    top: -20px;
+    width: 60px;
+    height: 60px;
+    margin: 0px;
+    padding: 0px;
+    background: var(--color-green);
+    color: #000;
+    border: none;
+}
+
+.bookingview.close * {
+    font-size: 60px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.bookingview.close:hover {
+    background: rgb(176, 235, 196);
+}
+
+.bookingview.mainname {
+    font-weight: 800;
+    font-size: 48px;
+    color: #fff;
+    line-height: 48px;
+}
+
+.bookingview.button {
+    width: 100%;
+    background-color: var(--color-orange);
+    border-radius: 0px;
+    font-size: 40px;
+    line-height: 40px;
+    font-weight: bolder;
+    color: white;
+}
+
+.bookingview.button:hover {
+    background-color: var(--color-green);
+    color: black;
+}
+
+.bookingview.input {
+    width: 100%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.bookingview.input>* {
+    color: var(--color-orange);
+    border-color: var(--color-orange);
+}
+
+.bookingview.input>* {
+    color: var(--color-orange);
+    border-color: var(--color-orange);
+}
+
+.bookingview.input>*>* {
+    color: var(--color-orange);
+    border-color: var(--color-orange);
+}
+
+.bookingview.input>*>input {
+    color: black;
 }

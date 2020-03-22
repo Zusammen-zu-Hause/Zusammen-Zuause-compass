@@ -1,8 +1,5 @@
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import React, {cloneElement} from "react";
+import React from "react";
 import Typography from "@material-ui/core/Typography";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import "./css/eventPanel.css"
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -11,9 +8,7 @@ import Collapse from "@material-ui/core/Collapse";
 import Card from "@material-ui/core/Card";
 import * as _ from "lodash";
 import FirebaseConnector from "../../model/FirebaseConnector";
-import {Category} from "../../model/model";
-import {exampleEvent} from "../../examplesAPI";
-import {login} from "../../model/firebase_auth";
+import {Category, Institution} from "../../model/model";
 import moment from "moment";
 import "moment/locale/de"
 
@@ -25,6 +20,8 @@ interface EventPanelProps {
 }
 
 interface EventPanelState {
+    fullyBooked: boolean,
+    institution: string
 }
 
 export default class EventPanel extends React.Component<EventPanelProps, EventPanelState> {
@@ -33,12 +30,29 @@ export default class EventPanel extends React.Component<EventPanelProps, EventPa
     constructor(props: EventPanelProps) {
         super(props);
         this.onClick = this.onClick.bind(this);
-        moment.locale("de")
+        this.fullyBooked = this.fullyBooked.bind(this);
+        this.state = {fullyBooked: false, institution: ""};
+        moment.locale("de");
+    }
+
+    componentDidMount(): void {
+        this.fullyBooked();
+        this.getInstitutionName();
     }
 
     onClick() {
         let id = _.cloneDeep(this.props.event.id);
         this.props.callbackOnChange(id);
+    }
+
+    async fullyBooked(): boolean {
+        let memberIds: string[] = await this.db.getMemberMails(this.props.category.id, this.props.event.id);
+        this.setState({fullyBooked: this.props.event.memberCount.max === memberIds.length});
+    }
+
+    async getInstitutionName(): string {
+        let institution: Institution = await this.db.getInstitution(this.props.event.institutionId);
+        this.setState({institution: institution.name});
     }
 
     render() {
@@ -56,7 +70,10 @@ export default class EventPanel extends React.Component<EventPanelProps, EventPa
                             {this.props.event.title}
                         </Typography>
                         <Typography variant="subtitle1" color="textSecondary">
-                            {this.props.event.institution}
+                            {this.state.institution}
+                        </Typography>
+                        <Typography variant="subtitle1" color="error" >
+                            {this.state.fullyBooked && "Keine freien Plätze!"}
                         </Typography>
                         <div className={"dateAndTime"}>
                             <Typography variant="subtitle1" color="textSecondary">

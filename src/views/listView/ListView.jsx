@@ -5,9 +5,9 @@ import FilterComponent from "./FilterComponent";
 import FirebaseConnector from "../../model/FirebaseConnector";
 import NavBar from "../../components/NavBar";
 import EventPanel from "./EventPanel";
-import {exampleEvent} from "../../examplesAPI";
 import {Category} from "../../model/model";
 import {LinearProgress} from "@material-ui/core";
+import uuid from "react-uuid";
 
 interface ListViewProps {
     categoryId: string,
@@ -44,7 +44,6 @@ export default class ListView extends React.Component<ListViewProps, ListViewSta
         let eventIds = await this.db.getEventIds(this.props.categoryId);
         let events: Event[] = [];
 
-
         for(let eventId of eventIds) {
             let event: Event = await this.db.getEvent(this.props.categoryId, eventId);
             if(event)
@@ -69,7 +68,7 @@ export default class ListView extends React.Component<ListViewProps, ListViewSta
 
     changeExpandedPanel(eventId: string) {
         if(this.state.expandedPanel === eventId) {
-            this.setState({expandedPanel: "eventId"});
+            this.setState({expandedPanel: ""});
         } else {
             this.setState({expandedPanel: eventId});
         }
@@ -89,11 +88,13 @@ export default class ListView extends React.Component<ListViewProps, ListViewSta
                         <Button className={"buttonRight"} variant="contained" onClick={this.handleFilterShow}>Filter</Button>
                     </div>
                     <FilterComponent visible={this.state.showFilterModal} dismissCallback={this.handleFilterDismiss}/>
-                    {this.state.events.map(event => {
-                        return (
-                            <EventPanel category={this.state.category} event={event} expanded={this.state.expandedPanel === event.id} callbackOnChange={this.changeExpandedPanel}/>
-                        );
-                    })}
+                    <div className={"eventPanels"}>
+                        {this.state.events.map(event => {
+                            return (
+                                <EventPanel key={uuid()} category={this.state.category} event={event} expanded={this.state.expandedPanel === event.id} callbackOnChange={this.changeExpandedPanel}/>
+                            );
+                        })}
+                    </div>
                     </>
                 }
             </div>

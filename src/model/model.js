@@ -5,7 +5,7 @@ export class Event {
                 creationDate: string,
                 description: string,
                 financial: { mandatory: boolean, price: string },
-                institutionId: { id: string, path: string },
+                institutionId: string,
                 logoSrc: string,
                 memberCount: { min: number, max: number },
                 startDate: string,
@@ -28,11 +28,12 @@ export class Event {
 }
 
 export class Category {
-    constructor(id: string, name: string, link: string, image: string) {
+    constructor(id: string, name: string, link: string, image: string, hidden: string) {
         this.id = id; //is Id in database
         this.name = name;
         this.link = link;
         this.image = image;
+        this.hidden = hidden
     }
 }
 

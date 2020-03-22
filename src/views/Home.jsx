@@ -2,12 +2,12 @@ import React from 'react';
 import  {
     AppBar,
     Button,
-    CircularProgress,
     TextField,
     Toolbar,
     Typography
 } from '@material-ui/core';
-import CategoryCard from '../components/CategoryCard';
+import CategoriesView from '../components/CategoriesView';
+import NavBar from '../components/NavBar';
 import FirebaseConnector from '../model/FirebaseConnector';
 
 class Home extends React.Component {
@@ -29,10 +29,10 @@ class Home extends React.Component {
     }
 
     async loadCategories() {
-        const categoryNames = await this.firebaseConnector.getCategoryNames();
+        const categoryIds = await this.firebaseConnector.getCategoryIds();
         const categories = [];
-        for (const categoryName of categoryNames) {
-            const category = await this.firebaseConnector.getCategory(categoryName);
+        for (const categoryId of categoryIds) {
+            const category = await this.firebaseConnector.getCategory(categoryId);
             categories.push(category);
         }
         this.setState({loadingCategories: false, categories});
@@ -49,16 +49,7 @@ class Home extends React.Component {
         const { loadingCategories, categories, searchQuery } = this.state;
         return (
             <>
-                <AppBar position="static" className="appbar">
-                    <Toolbar>
-                        <Typography variant="h6" className="title">
-                            Zusammen zu Hause
-                        </Typography>
-                        <Button color="secondary" variant="contained">Erstelle ein ZzH Event</Button>
-                        <Button color="inherit" onClick={() => history.push('/account/login')}>Login</Button>
-                        <Button color="inherit" onClick={() => history.push('/account/register')}>Registrieren</Button>
-                    </Toolbar>
-                </AppBar>
+                <NavBar history={history} />
                 <div className="search">
                     <div className="overlay center">
                         <div className="title">
@@ -70,20 +61,9 @@ class Home extends React.Component {
                 </div>
                 <div className="categories">
                     <Typography variant="h4" className="title">Kategorien</Typography>
-                    { loadingCategories && <div className="center"><CircularProgress color="secondary" /></div> }
-                    <div  className="container">
-                    { !loadingCategories && categories.map(category => {
-                        return (
-                            <CategoryCard 
-                                key={category.name}
-                                title={category.name}
-                                url={'/category/' + category.name}
-                                image={category.image}
-                                history={history}
-                                />
-                        )
-                    })}
-                    </div>
+                    <CategoriesView 
+                        onClick={category => history.push("/category/" + category)}
+                        />
                 </div>
             </>
         );

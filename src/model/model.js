@@ -27,12 +27,12 @@ export class Event {
         this.members = members;
     }
 
-
 }
 
 export class Category {
-    constructor(name: string, link: string, image: string) {
-        this.name = name; //is Id in database
+    constructor(id:string, name: string, link: string, image: string) {
+        this.id = id; //is Id in database
+        this.name = name;
         this.link = link;
         this.image = image;
     }

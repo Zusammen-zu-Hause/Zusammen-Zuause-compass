@@ -23,7 +23,7 @@ function App() {
         component={Legal}
         exact
       />
-      <Route path='/privacy-policy'
+      <Route path='/legal/privacy-policy'
         component={PrivacyPolicy}
         exact
       />

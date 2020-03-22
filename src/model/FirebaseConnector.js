@@ -1,8 +1,9 @@
-import * as firebase from 'firebase';
-import 'firebase/database';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 import {Category, Event, Member} from "./model";
-import {firebaseConfig} from "../firebaseConfig";
+import {firebaseFirestore} from './firebase';
+
 
 const CATEGORIES = "categories";
 const MEMBERS = "members";
@@ -26,11 +27,7 @@ export default class FirebaseConnector {
 
     constructor() {
         if (this.database === null) {
-            try {
-                firebase.initializeApp(firebaseConfig);
-            } catch (e) {
-            }
-            this.database = firebase.firestore()
+            this.database = firebaseFirestore()
         }
     }
 
@@ -144,23 +141,18 @@ export default class FirebaseConnector {
      * Returns all eventIds to a specific category in the database.
      * @categoryName: is the name of the category.
      * */
-    getEventIds(categoryName: string): Array<String> {
+    async getEventIds(categoryName: string): Array<String> {
         const events = [];
-        this.database
-            .collection(CATEGORIES)
-            .doc(categoryName)
-            .collection(EVENTS)
-            .get()
-            .then((success1) => {
-                success1.forEach((doc) => {
-                    console.log("Success getting event names: ", doc);
-                    events.push(doc.id)
-                });
-            })
-            .catch((error) => {
-                console.error("Error getting event names: ", error);
+        try {
+            const success1= await this.database.collection(CATEGORIES).doc(categoryName).collection(EVENTS).get()
+            success1.forEach(doc => {
+                console.log("Success getting event names: ", doc);
+                events.push(doc.id)
             });
-        console.log("Success getting event names: ", events);
+            console.log("Success getting event names: ", events);
+        } catch (error) {
+            console.error("Error getting event names: ", error);
+        }
         return events;
     }
 

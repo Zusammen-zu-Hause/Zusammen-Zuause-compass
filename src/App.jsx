@@ -4,6 +4,8 @@ import Home from './views/Home';
 import Detail from './views/Detail';
 import ListView from "./views/listView/ListView";
 import Account from './views/account';
+import CreateEvent from './views/CreateEvent';
+import './App.css';
 import Legal from './views/Legal';
 import PrivacyPolicy from "./views/PrivacyPolicy";
 import './App.css';
@@ -14,8 +16,8 @@ function Fallback() {
 
 function App() {
   const DETAILVIEW = ({match}) => <Detail category={match.params.categoryId} eventID={match.params.eventId} />;
-  const LISTVIEW = (props) => <ListView categoryId={props.match.params.categoryId} history={props.history} />;
-      
+  const LISTVIEW = (props) => <ListView categoryId={props.match.params.categoryId} history={props.history} />;    
+
   return (
     <Switch>
       <Route
@@ -41,8 +43,13 @@ function App() {
         component={LISTVIEW}
         />
       <Route
+        path='/create'
+        component={CreateEvent}
+        exact
+      />
+      <Route
         component={Fallback}
-        />
+      />
     </Switch>
   );
 }

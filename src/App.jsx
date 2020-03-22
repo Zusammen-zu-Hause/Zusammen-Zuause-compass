@@ -3,20 +3,13 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Home from './views/Home';
 import Detail from './views/Detail';
 import ListView from "./views/listView/ListView";
-import SignUp from './views/SignUp';
-import Login from './views/Login';
-import './App.css';
+import Account from './views/account';
 import Legal from './views/Legal';
 import PrivacyPolicy from "./views/PrivacyPolicy";
-import { logout } from './model/firebase_auth';
+import './App.css';
 
 function Fallback() {
     return <Redirect to='/' push />;
-}
-
-function Logout() {
-  logout();
-  return <Redirect to='/' push />;
 }
 
 function App() {
@@ -42,21 +35,7 @@ function App() {
         component={DETAILVIEW}
         exact
       />
-      <Route 
-        path='/account/signup' 
-        component={SignUp}
-        exact
-        />
-      <Route 
-        path='/account/login' 
-        component={Login}
-        exact
-        />
-      <Route 
-        path='/account/logout' 
-        component={Logout}
-        exact
-        />
+      <Route path='/account' component={Account} />
       <Route 
         path='/category/:categoryId'
         component={LISTVIEW}

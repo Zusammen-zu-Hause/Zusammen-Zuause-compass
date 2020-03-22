@@ -12,35 +12,39 @@ db = new FirebaseConnector().getMemberMails("Kunstausstellungen", "HGFVBNJKTFGHD
 //
 db = new FirebaseConnector().getCategory("Kunstausstellungen");
 db = new FirebaseConnector().getEvent("Kunstausstellungen", "HGFVBNJKTFGHDMNBGYJK");
-db = new FirebaseConnector().getMember("Kunstausstellungen", "HGFVBNJKTFGHDMNBGYJK", "hans@hans.de");
+export const exampleEvent = new Event(
+    "HGFVBNJKTFGHDMNBGYJK",
+    {
+        blind: true,
+        childFriendly: true,
+        deaf: true,
+        interactive: true,
+        physicalDisabled: true,
+        together: true
+    },
+    {min: 0, max: 12},
+    "2020-03-20T17:00:00.00+01:00",
+    "This is a example description",
+    {price: "0", mandatory: false},
+    "Example Institution",
+    "src/logo",
+    {min: 0, max: 20},
+    "2020-04-20T17:00:00.00+01:00",
+    "This is a short description",
+    "Beste Kunstauffstellung der welt",
+    [{
+        name: "hans",
+        email: "mail@mail.de"
+    }]
+);
 
+
+db = new FirebaseConnector().getMember("Kunstausstellungen", "HGFVBNJKTFGHDMNBGYJK", "hans@hans.de");
 
 export const exampleCategory = new Category(
     "Kunstausstellungen",
     "http://link.de",
     "path/to/img"
-);
-
-export const exampleEvent = new Event(
-    "HGFVBNJKTFGHDMNBGYJK",
-    "MegaEvent",
-    {min: 0, max: 12},
-    true,
-    "2020-03-20T17:00:00.00+01:00",
-    "This is a example category",
-    {price: "0", mandatory: false},
-    {blind: false, deaf: false, physicalDisabled: false, educationallyDisabled: false},
-    "Example Institution",
-    false,
-    "src/logo",
-    {min: 0, max: 20},
-    "2020-04-20T17:00:00.00+01:00",
-    "Beste Kunstauffstellung der welt",
-    false,
-    [{
-        name: "hans",
-        email: "mail@mail.de"
-    }]
 );
 
 export const exampleMember = new Member(

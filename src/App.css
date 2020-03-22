@@ -116,3 +116,25 @@
 .authbox .button {
     
 }
+
+.error {
+    background: red;
+    display: flex;
+    justify-content: center;
+    font-size: 50px !important;
+    font-weight: 600 !important;
+    line-height: 50px;
+    height: 100px;
+    align-items: center;
+}
+
+.success {
+    background: var(--color-green);
+    display: flex;
+    justify-content: center;
+    font-size: 50px !important;
+    font-weight: 600 !important;
+    line-height: 100px;
+    min-height: 100px;
+    align-items: center;
+}

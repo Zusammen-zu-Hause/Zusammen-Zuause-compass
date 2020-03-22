@@ -19,6 +19,8 @@ function Logout() {
 }
 
 function App() {
+  const DETAILVIEW = ({match}) => <Detail category={match.params.categoryId} eventID={match.params.eventId} />;
+  
   return (
     <Switch>
       <Route
@@ -34,8 +36,8 @@ function App() {
         component={PrivacyPolicy}
         exact
       />
-      <Route path='/detailtest'
-        component={Detail}
+      <Route path='/category/:categoryId/event/:eventId'
+        component={DETAILVIEW}
         exact
       />
       <Route 

@@ -115,7 +115,7 @@ export default class FirebaseConnector {
     /*
      * Returns all category ids in the database.
      * */
-    async getCategoryIds(): Array<String> {
+    async getCategoryIds(): Array<string> {
         const categories = [];
         try {
             const success1 = await this.database.collection(CATEGORIES).get();
@@ -131,10 +131,11 @@ export default class FirebaseConnector {
      * Returns all eventIds to a specific category in the database.
      * @categoryId: is the id of the category.
      * */
-    async getEventIds(categoryId: string): Array<String> {
+    async getEventIds(categoryId: string): Array<string> {
         const events = [];
         try {
-            const success1 = await this.database.collection(CATEGORIES).doc(categoryId).collection(EVENTS).get()
+            const success1 = await this.database.collection(CATEGORIES).doc(categoryId).collection(EVENTS).get();
+            console.log("success1",success1);
             success1.forEach(doc => {
                 console.log("Success getting event names: ", doc);
                 events.push(doc.id)

@@ -28,7 +28,7 @@ class NavBar extends React.Component {
                         Zusammen zu Hause
                     </Typography>
                     <Button color="secondary" variant="contained" onClick={() => history.push('/new')}>Erstelle ein Event</Button>
-                    { user ? <></> : (
+                    { user ? <Button color="inherit" onClick={() => history.push('/account/logout')}>Logout</Button> : (
                         <>
                             <Button color="inherit" onClick={() => history.push('/account/login')}>Login</Button>
                             <Button color="inherit" onClick={() => history.push('/account/signup')}>Registrieren</Button>

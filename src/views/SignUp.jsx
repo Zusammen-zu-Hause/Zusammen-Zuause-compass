@@ -64,7 +64,7 @@ class SignUp extends React.Component {
     async handleSaveCategories() {
         const { user, selectedCategories } = this.state;
         console.log(getCurrentUser());
-        firebaseFirestore().collection('user').doc(user.uid).set({
+        firebaseFirestore().collection('users').doc(user.uid).set({
             "name": user.displayName,
             "categories": selectedCategories
         });
@@ -164,7 +164,7 @@ class SignUp extends React.Component {
                                     Weiter
                                 </Button>
                             </form>
-                            <Typography className="text-field text">Wenn du auf "Weiter" drückst, akzeptiertst du unser <Link>Code of Conduct</Link> und unser <Link>Datenschutzbestimmungen</Link></Typography>
+                            <Typography className="text-field text">Wenn du auf "Weiter" drückst, akzeptierst du unser <Link>Code of Conduct</Link> und unser <Link>Datenschutzbestimmungen</Link></Typography>
                             <hr />
                             <Typography className="text">Schon Mitglied? <Link to="/account/login" push="true">Anmelden</Link></Typography>
                         </div>

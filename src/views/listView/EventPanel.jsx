@@ -12,8 +12,6 @@ import Card from "@material-ui/core/Card";
 import * as _ from "lodash";
 import FirebaseConnector from "../../model/FirebaseConnector";
 import {Category} from "../../model/model";
-import {exampleEvent} from "../../examplesAPI";
-import {login} from "../../model/firebase_auth";
 import moment from "moment";
 import "moment/locale/de"
 
@@ -33,12 +31,18 @@ export default class EventPanel extends React.Component<EventPanelProps, EventPa
     constructor(props: EventPanelProps) {
         super(props);
         this.onClick = this.onClick.bind(this);
+        this.fullyBooked = this.fullyBooked.bind(this);
         moment.locale("de")
     }
 
     onClick() {
         let id = _.cloneDeep(this.props.event.id);
         this.props.callbackOnChange(id);
+    }
+
+    async fullyBooked() {
+        let memberIds: string[] = await this.db.getMemberMails(this.props.category.id, this.props.event.id);
+        return this.props.event.memberCount.max === memberIds.length;
     }
 
     render() {
@@ -57,6 +61,9 @@ export default class EventPanel extends React.Component<EventPanelProps, EventPa
                         </Typography>
                         <Typography variant="subtitle1" color="textSecondary">
                             {this.props.event.institution}
+                        </Typography>
+                        <Typography variant="subtitle1" color="textSecondary">
+                            {!this.fullyBooked() && "Keine freien Plätze!"}
                         </Typography>
                         <div className={"dateAndTime"}>
                             <Typography variant="subtitle1" color="textSecondary">

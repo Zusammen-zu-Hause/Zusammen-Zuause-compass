@@ -16,8 +16,9 @@ class CategoryCard extends React.Component {
     }
 
     handleClick() {
-        const {url, history} = this.props;
-        history.push(url);
+        if (this.props.onClick) {
+            this.props.onClick();
+        }
     }
 
     render() {
@@ -36,11 +37,14 @@ class CategoryCard extends React.Component {
     }
 }
 
+CategoryCard.deafultProps = {
+    onClick: () => {}
+}
+
 CategoryCard.propTypes = {
     title: PropTypes.string,
-    url: PropTypes.string,
-    image: PropTypes.string.isRequired,
-    history: PropTypes.any.isRequired
+    onClick: PropTypes.func,
+    image: PropTypes.string.isRequired
 }
 
 export default CategoryCard;

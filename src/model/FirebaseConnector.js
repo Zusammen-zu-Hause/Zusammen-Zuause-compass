@@ -1,8 +1,9 @@
-import * as firebase from 'firebase';
-import 'firebase/database';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 import {Category, Event, Member} from "./model";
-import {firebaseConfig} from "../firebaseConfig";
+import {firebaseFirestore} from './firebase';
+
 
 const CATEGORIES = "categories";
 const MEMBERS = "members";
@@ -26,11 +27,7 @@ export default class FirebaseConnector {
 
     constructor() {
         if (this.database === null) {
-            try {
-                firebase.initializeApp(firebaseConfig);
-            } catch (e) {
-            }
-            this.database = firebase.firestore()
+            this.database = firebaseFirestore()
         }
     }
 
@@ -128,20 +125,15 @@ export default class FirebaseConnector {
     /*
      * Returns all category names in the database.
      * */
-    getCategoryNames(): Array<String> {
+    async getCategoryNames(): Array<String> {
         const categories = [];
-        this.database
-            .collection(CATEGORIES)
-            .get()
-            .then((success1) => {
-                success1.forEach((doc) => {
-                    categories.push(doc.id)
-                });
-            })
-            .catch((error) => {
-                console.error("Error getting categorie names: ", error);
-            });
-        console.log("Success getting categorie names: ", categories);
+        try {
+            const success1 = await this.database.collection(CATEGORIES).get()
+            success1.forEach(doc => categories.push(doc.id));
+            console.log("Success getting categorie names: ", categories);
+        } catch (error) {
+            console.error("Error getting categorie names: ", error);
+        }
         return categories;
     }
 
@@ -149,23 +141,18 @@ export default class FirebaseConnector {
      * Returns all eventIds to a specific category in the database.
      * @categoryName: is the name of the category.
      * */
-    getEventIds(categoryName: string): Array<String> {
+    async getEventIds(categoryName: string): Array<String> {
         const events = [];
-        this.database
-            .collection(CATEGORIES)
-            .doc(categoryName)
-            .collection(EVENTS)
-            .get()
-            .then((success1) => {
-                success1.forEach((doc) => {
-                    console.log("Success getting event names: ", doc);
-                    events.push(doc.id)
-                });
-            })
-            .catch((error) => {
-                console.error("Error getting event names: ", error);
+        try {
+            const success1= await this.database.collection(CATEGORIES).doc(categoryName).collection(EVENTS).get()
+            success1.forEach(doc => {
+                console.log("Success getting event names: ", doc);
+                events.push(doc.id)
             });
-        console.log("Success getting event names: ", events);
+            console.log("Success getting event names: ", events);
+        } catch (error) {
+            console.error("Error getting event names: ", error);
+        }
         return events;
     }
 
@@ -200,23 +187,19 @@ export default class FirebaseConnector {
      * Returns a specific category (without events) or null if the category does not exist.
      * @categoryName: is the name of the category.
      * */
-    getCategory(categoryName: string): Category {
+    async getCategory(categoryName: string): Category {
         let categorie = null;
-        this.database
-            .collection(CATEGORIES)
-            .doc(categoryName)
-            .get()
-            .then((doc) => {
-                if (doc.exists) {
-                    categorie = doc.data();
-                    console.log("Success getting category ", categorie);
-                } else {
-                    console.error("No such category!", doc);
-                }
-            })
-            .catch((error) => {
-                console.error("Error getting category: ", error);
-            });
+        try {
+            const doc = await this.database.collection(CATEGORIES).doc(categoryName).get();
+            if (doc.exists) {
+                categorie = doc.data();
+                console.log("Success getting category ", categorie);
+            } else {
+                console.error("No such category!", doc);
+            }
+        } catch(error) {
+            console.error("Error getting category: ", error);
+        }
         return categorie;
     }
 

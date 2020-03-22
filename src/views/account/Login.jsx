@@ -48,11 +48,12 @@ class Login extends React.Component {
     }
 
     render() {
+        const { history } = this.props;
         const { email, password, visibilePassword } = this.state;
         return (
             <>
                 <Toolbar>
-                    <Typography variant="h6" className="title">
+                    <Typography  onClick={() => history.push('/')} variant="h6" className="title">
                         Zusammen zu Hause
                     </Typography>
                 </Toolbar>

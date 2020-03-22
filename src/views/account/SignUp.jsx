@@ -92,7 +92,7 @@ class SignUp extends React.Component {
         return (
             <>
                 <Toolbar>
-                    <Typography variant="h6" className="title">
+                    <Typography  onClick={() => history.push('/')} variant="h6" className="title">
                         Zusammen zu Hause
                     </Typography>
                 </Toolbar>
@@ -164,7 +164,7 @@ class SignUp extends React.Component {
                                     Weiter
                                 </Button>
                             </form>
-                            <Typography className="text-field text">Wenn du auf "Weiter" drückst, akzeptierst du unser <Link>Code of Conduct</Link> und unser <Link>Datenschutzbestimmungen</Link></Typography>
+                            <Typography className="text-field text">Wenn du auf "Weiter" drückst, akzeptierst du unser <Link>Code of Conduct</Link> und unser <Link to="/legal/privacy-policy">Datenschutzbestimmungen</Link></Typography>
                             <hr />
                             <Typography className="text">Schon Mitglied? <Link to="/account/login" push="true">Anmelden</Link></Typography>
                         </div>

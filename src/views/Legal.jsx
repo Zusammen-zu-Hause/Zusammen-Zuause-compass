@@ -30,19 +30,27 @@ class Legal extends React.Component {
                         Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen
                         Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt
                         der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden
-                        Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p><strong>
-                        Datenschutz</strong><p>
-                        Die Nutzung unserer Webseite ist in der Regel ohne eine Angabe personenbezogener Daten möglich.
-                        Soweit auf unseren Seiten personenbezogene Daten (beispielsweise Name, Anschrift oder
-                        E-Mail-Adresse) erhoben werden, erfolgt dies – soweit es möglich ist– immer auf freiwilliger
-                        Basis. Wir geben Ihre Daten ohne Ihre ausdrückliche Zustimmung nicht an Dritte weiter. Außerdem
-                        weisen wir Sie darauf hin, dass die Datenübertragung im Internet (wie beispielsweise bei der
-                        Kommunikation über E-Mail) Sicherheitslücken aufweisen kann. Denn ein lückenloser Schutz der
-                        Daten vor dem Zugriff durch Dritte ist nicht möglich. Wir widersprechen hiermit ausdrücklich der
-                        Nutzung von im Rahmen der Impressumspflicht veröffentlichten Kontaktdaten durch Dritte zur
-                        Übersendung von nicht ausdrücklich angeforderter Werbung und Informationsmaterialien. Die
-                        Betreiber dieser Seiten behalten sich ausdrücklich vor, im Fall der unverlangten Zusendung von
-                        Werbeinformationen, etwa durch Spam-Mails, rechtliche Schritte einzuleiten.</p><i><a
+                        Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.
+                    </p>
+                        <strong>
+                            Datenschutz
+                        </strong>
+                        <p>
+                            Die Nutzung unserer Webseite ist in der Regel ohne eine Angabe personenbezogener Daten
+                            möglich.
+                            Soweit auf unseren Seiten personenbezogene Daten (beispielsweise Name, Anschrift oder
+                            E-Mail-Adresse) erhoben werden, erfolgt dies – soweit es möglich ist– immer auf freiwilliger
+                            Basis. Wir geben Ihre Daten ohne Ihre ausdrückliche Zustimmung nicht an Dritte weiter.
+                            Außerdem
+                            weisen wir Sie darauf hin, dass die Datenübertragung im Internet (wie beispielsweise bei der
+                            Kommunikation über E-Mail) Sicherheitslücken aufweisen kann. Denn ein lückenloser Schutz der
+                            Daten vor dem Zugriff durch Dritte ist nicht möglich. Wir widersprechen hiermit ausdrücklich
+                            der
+                            Nutzung von im Rahmen der Impressumspflicht veröffentlichten Kontaktdaten durch Dritte zur
+                            Übersendung von nicht ausdrücklich angeforderter Werbung und Informationsmaterialien. Die
+                            Betreiber dieser Seiten behalten sich ausdrücklich vor, im Fall der unverlangten Zusendung
+                            von
+                            Werbeinformationen, etwa durch Spam-Mails, rechtliche Schritte einzuleiten.</p><i><a
                         href="http://www.agb.de">Gratis Impressum</a> von agb.de</i>
 
 

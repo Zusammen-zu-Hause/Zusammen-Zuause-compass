@@ -1,12 +1,15 @@
 import * as React from "react";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
-import Button from "@material-ui/core/Button";
-import Switch from "@material-ui/core/Switch";
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    Slider,
+    Switch
+} from "@material-ui/core"
+
 import "./css/filterComponent.css"
-import Slider from "@material-ui/core/Slider";
 
 interface FilterComponentProps {
     visible: boolean,
@@ -25,7 +28,11 @@ export default class FilterComponent extends React.Component<FilterComponentProp
 
     constructor(props: FilterComponentProps) {
         super(props);
-        this.state = {gebaerdeChecked: false, audioChecked: false, ageValue: [16,95], priceValue: 0
+        this.state = {
+            gebaerdeChecked: false, 
+            audioChecked: false, 
+            ageValue: [16,95], 
+            priceValue: 0
             // , selectedDate: new Date('2014-08-18T21:11:54')
         };
         this.handleAudioChange = this.handleAudioChange.bind(this);
@@ -39,10 +46,6 @@ export default class FilterComponent extends React.Component<FilterComponentProp
 
     handleDismiss(){
         this.props.dismissCallback();
-    }
-
-    open() {
-
     }
 
     handleGebaerdeChange() {
@@ -76,7 +79,7 @@ export default class FilterComponent extends React.Component<FilterComponentProp
     render() {
         return(
             <Dialog style={{display: this.props.visible ? "" : "none"}}
-                    onClose={this.handleDismiss} aria-labelledby="customized-dialog-title" open={this.open}>
+                    onClose={this.handleDismiss} aria-labelledby="customized-dialog-title" open>
                 <DialogTitle id="customized-dialog-title" onClose={this.handleDismiss}>
                     Filter
                 </DialogTitle>

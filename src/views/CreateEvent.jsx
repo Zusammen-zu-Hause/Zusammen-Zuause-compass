@@ -423,7 +423,7 @@ class CreateEvent extends React.Component {
                     max: this.state.memberCount[1] 
                 }, // memberCount
                 this.state.date + this.state.time, // startDate
-                this.state.shortDesc, // shortDescription
+                this.state.description, // shortDescription
                 this.state.isPublic, // isPublic
                 this.state.eventLink, // eventLink
                 this.state.title // title

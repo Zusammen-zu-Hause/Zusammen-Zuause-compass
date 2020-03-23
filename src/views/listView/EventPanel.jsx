@@ -1,26 +1,32 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
-import "./css/eventPanel.css"
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import {ExpandLess, ExpandMore} from "@material-ui/icons";
-import Collapse from "@material-ui/core/Collapse";
-import Card from "@material-ui/core/Card";
-import * as _ from "lodash";
+import {
+    Button,
+    Card,
+    CardContent,
+    CardMedia,
+    Collapse,
+    Typography,
+    IconButton
+} from "@material-ui/core";
+import {
+    ExpandLess, 
+    ExpandMore
+} from "@material-ui/icons";
+import moment from "moment";
+import "moment/locale/de";
 import FirebaseConnector from "../../model/FirebaseConnector";
 import {Category, Institution} from "../../model/model";
-import moment from "moment";
-import "moment/locale/de"
+import "./css/eventPanel.css";
 
 interface EventPanelProps {
     category: Category,
     event: Event,
-    expanded: boolean,
     callbackOnChange: (event: string) => void
 }
 
 interface EventPanelState {
     fullyBooked: boolean,
+    expanded: boolean,
     institution: string
 }
 
@@ -29,10 +35,16 @@ export default class EventPanel extends React.Component<EventPanelProps, EventPa
 
     constructor(props: EventPanelProps) {
         super(props);
-        this.onClick = this.onClick.bind(this);
-        this.fullyBooked = this.fullyBooked.bind(this);
-        this.state = {fullyBooked: false, institution: ""};
+        this.state = {
+            fullyBooked: false,
+            expanded: false,
+            institution: ""
+        };
         moment.locale("de");
+
+        this.toggleExpanded = this.toggleExpanded.bind(this);
+        this.fullyBooked = this.fullyBooked.bind(this);
+        this.getInstitutionName = this.getInstitutionName.bind(this);
     }
 
     componentDidMount(): void {
@@ -40,9 +52,9 @@ export default class EventPanel extends React.Component<EventPanelProps, EventPa
         this.getInstitutionName();
     }
 
-    onClick() {
-        let id = _.cloneDeep(this.props.event.id);
-        this.props.callbackOnChange(id);
+    toggleExpanded() {
+        const expanded= !this.state.expanded;
+        this.setState({ expanded });
     }
 
     async fullyBooked(): boolean {
@@ -56,18 +68,20 @@ export default class EventPanel extends React.Component<EventPanelProps, EventPa
     }
 
     render() {
+        const { category, event } = this.props;
+        const { expanded } = this.state;
         return(
             <Card className="card">
                 <CardMedia
                     className="cover"
-                    image={this.props.category.image}
-                    title={this.props.category.id+"Img"}
+                    image={category.image}
+                    title={category.id+"Img"}
                 />
                 <div className="details">
-                    <CardContent className="content" onClick={this.onClick}>
-                        {this.props.expanded ? <ExpandLess className={"arrow"}/> : <ExpandMore className={"arrow"}/>}
+                    <CardContent className="content" onClick={this.toggleExpanded}>
+                        <IconButton className="arrow">{ expanded ? <ExpandLess /> : <ExpandMore /> }</IconButton>
                         <Typography component="h5" variant="h5">
-                            {this.props.event.title}
+                            {event.title}
                         </Typography>
                         <Typography variant="subtitle1" color="textSecondary">
                             {this.state.institution}
@@ -77,19 +91,20 @@ export default class EventPanel extends React.Component<EventPanelProps, EventPa
                         </Typography>
                         <div className={"dateAndTime"}>
                             <Typography variant="subtitle1" color="textSecondary">
-                                {moment(this.props.event.startDate).format("dddd,  DD MMMM YYYY")}
+                                {moment(event.startDate).format("dddd,  DD MMMM YYYY")}
                             </Typography>
                             <Typography variant="subtitle1" color="textSecondary">
-                                {moment(this.props.event.startDate).format("HH:mm")} Uhr
+                                {moment(event.startDate).format("HH:mm")} Uhr
                             </Typography>
                         </div>
                         <br/>
-                        <Collapse in={this.props.expanded} timeout="auto" unmountOnExit className={"collapseText"}>
+                        <Collapse in={expanded} timeout="auto" unmountOnExit className="collapseText">
                             <br/>
                             <br/>
                             <Typography variant="subtitle1" color="textSecondary">
-                                {this.props.event.shortDescription}
+                                {event.shortDescription}
                             </Typography>
+                            { event.isPublic && <Button variant="contained" color="primary" href={event.eventLink} fullWidth>Zum Event</Button> }
                         </Collapse>
                     </CardContent>
                 </div>

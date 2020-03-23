@@ -39,6 +39,17 @@ const MAXPRICE = 1000;
 
 const steps = ['Allgemein', 'Zeit', 'Besonderes', 'Institution', 'Sonstiges', 'Fertig'];
 
+const toISO = (date, time) => {
+    let day = date.split("-")[2];
+    let month = date.split("-")[1];
+    let year = date.split("-")[0];
+    let hour = time.split(":")[0];
+    let minute = time.split(":")[1];
+
+    let d = new Date(year, month - 1, day, hour, minute);
+    return d.toISOString();
+}
+
 class CreateEvent extends React.Component {
 
 
@@ -51,8 +62,8 @@ class CreateEvent extends React.Component {
             title: "",
             shortDesc: "",
             description: "",
-            date: "",
-            time: "",
+            date: new Date().toISOString().slice(0, 10),
+            time: new Date().toISOString().slice(11, 16),
             blind: false, childFriendly: false, deaf: false, interactive: false, physicalDisabled: false, together: false,
             institutionList: [],
             categoryList: [],
@@ -65,6 +76,7 @@ class CreateEvent extends React.Component {
             image: "",
             eventLink: "",
             isPublic: false,
+            sending: false,
         }
 
 
@@ -140,7 +152,7 @@ class CreateEvent extends React.Component {
     };
 
     render() {
-        const { loadedCat, loadedInst, activeStep, title, description, blind, childFriendly, deaf, interactive, physicalDisabled, together, institutionList, categoryList, age, money, moneyMandatory, memberCount, category, institution, image, eventLink, isPublic } = this.state;
+        const { loadedCat, loadedInst, activeStep, title, shortDesc, description, date, time, blind, childFriendly, deaf, interactive, physicalDisabled, together, institutionList, categoryList, age, money, moneyMandatory, memberCount, category, institution, image, eventLink, isPublic, sending } = this.state;
         if (!loadedCat || !loadedInst) {
             return (<CircularProgress className={loadingClass} />);
         }
@@ -167,7 +179,8 @@ class CreateEvent extends React.Component {
                         <>
                             <form onSubmit={this.handleStep0}>
                                 <TextField label="Titel" variant="outlined" className="text-field" value={title} onChange={this.valUpdate("title")} fullWidth required />
-                                <TextField label="Beschreibung" variant="outlined" className="text-field" value={description} onChange={this.valUpdate("description")} fullWidth multiline rows="7" required />
+                                <TextField label="Kurzbeschreibung" variant="outlined" className="text-field" value={shortDesc} onChange={this.valUpdate("shortDesc")} fullWidth required />
+                                <TextField label="Beschreibung" variant="outlined" className="text-field" value={description} onChange={this.valUpdate("description")} fullWidth multiline rows="8" required />
                                 <FormControl variant="outlined" className={categoryClass}>
                                     <InputLabel id="catlabel">Kategorie</InputLabel>
                                     <Select
@@ -197,7 +210,8 @@ class CreateEvent extends React.Component {
                                     id="date"
                                     label="Datum"
                                     type="date"
-                                    defaultValue={new Date().toISOString().slice(0, 10)}
+                                    value={date}
+                                    onChange={this.valUpdate("date")}
                                     className={timePickersClass}
                                     InputLabelProps={{
                                         shrink: true,
@@ -207,7 +221,8 @@ class CreateEvent extends React.Component {
                                     id="time"
                                     label="Zeit"
                                     type="time"
-                                    defaultValue={new Date().toISOString().slice(11, 16)}
+                                    value={time}
+                                    onChange={this.valUpdate("time")}
                                     className={timePickersClass}
                                     InputLabelProps={{
                                         shrink: true,
@@ -311,6 +326,11 @@ class CreateEvent extends React.Component {
                                     valueLabelDisplay="on"
                                     step={1}
                                 />
+                                <TextField label="Joinlink (optional)" variant="outlined" className="text-field" value={eventLink} onChange={this.valUpdate("eventLink")} fullWidth />
+                                <FormControlLabel
+                                    control={<Checkbox checked={isPublic} name="isPublic" onChange={this.checkboxUpdate} />}
+                                    label="Link veröffentlichen:   Wenn der Link veröffentlicht wird kann jeder unabhängig von der Teilnehmer anzahl beitreten."
+                                />
                                 <div className={moneyRootClass}>
                                     <FormControl className={moneyValueClass} variant="outlined">
                                         <InputLabel htmlFor="money">Preis</InputLabel>
@@ -339,17 +359,14 @@ class CreateEvent extends React.Component {
                         <>
                             <form onSubmit={this.handleStep5}>
                                 <TextField label="Link zu Icon (optional)" variant="outlined" className="text-field" value={image} onChange={this.valUpdate("image")} fullWidth />
-                                <TextField label="Joinlink (optional)" variant="outlined" className="text-field" value={eventLink} onChange={this.valUpdate("eventLink")} fullWidth />
-                                <FormControlLabel
-                                    control={<Checkbox checked={isPublic} name="isPublic" onChange={this.checkboxUpdate} />}
-                                    label="Link veröffentlichen"
-                                />
-                                <Button color="secondary" type="submit" variant="outlined" fullWidth className={"text-field " + buttonClass}>Erstellen</Button>
+                                {sending ? (<Button color = "secondary" type = "submit" variant = "outlined" fullWidth disabled className = {"text-field " + buttonClass}>Erstellen</Button>): (
+                                    <Button color = "secondary" type = "submit" variant = "outlined" fullWidth className = {"text-field " + buttonClass}>Erstellen</Button>
+                                )}
                             </form>
                         </>)
                     }
 
-                </div>
+            </div>
             </>
         );
     }
@@ -360,7 +377,6 @@ class CreateEvent extends React.Component {
                 activeStep: 1
             });
         }
-        console.log(this.state.category);
         e.preventDefault();
     }
 
@@ -382,7 +398,6 @@ class CreateEvent extends React.Component {
                 activeStep: 4
             });
         }
-        console.log(this.state.institution);
         e.preventDefault();
     }
 
@@ -394,45 +409,60 @@ class CreateEvent extends React.Component {
 
     async handleStep5(ev) {
         ev.preventDefault();
-        // TODO: logo
+        if(this.state.sending) {
+            return;
+        }
+        await this.setState({
+            sending: true
+        });
+        let creationDate = new Date().toISOString();
         const e = new Event(
-                "", // id
-                { 
-                    blind: this.state.blind, 
-                    childFriendly: this.state.childFriendly, 
-                    deaf: this.state.deaf, 
-                    interactive: this.state.interactive, 
-                    physicalDisabled: this.state.physicalDisabled, 
-                    together: this.state.together 
-                }, //
-                { 
-                    min: this.state.age[0], 
-                    max: this.state.age[1] 
-                }, // age
-                new Date().toISOString(), // creationDate
-                this.state.description, // description
-                { 
-                    mandatory: this.state.moneyMandatory, 
-                    price: this.state.money 
-                }, // financial
-                this.state.institution, // institutionId
-                "", // logoSrc
-                { 
-                    min: this.state.memberCount[0], 
-                    max: this.state.memberCount[1] 
-                }, // memberCount
-                this.state.date + this.state.time, // startDate
-                this.state.shortDesc, // shortDescription
-                this.state.isPublic, // isPublic
-                this.state.eventLink, // eventLink
-                this.state.title // title
-            );
+            "", // id
+            {
+                blind: this.state.blind,
+                childFriendly: this.state.childFriendly,
+                deaf: this.state.deaf,
+                interactive: this.state.interactive,
+                physicalDisabled: this.state.physicalDisabled,
+                together: this.state.together
+            }, //
+            {
+                min: this.state.age[0],
+                max: this.state.age[1]
+            }, // age
+            creationDate, // creationDate
+            this.state.description, // description
+            {
+                mandatory: this.state.moneyMandatory,
+                price: this.state.money
+            }, // financial
+            this.state.institution, // institutionId
+            this.state.image, // logoSrc
+            {
+                min: this.state.memberCount[0],
+                max: this.state.memberCount[1]
+            }, // memberCount
+            toISO(this.state.date, this.state.time), // startDate
+            this.state.shortDesc, // shortDescription
+            this.state.isPublic, // isPublic
+            this.state.eventLink, // eventLink
+            this.state.title // title
+        );
         const r = await new FirebaseConnector().createEvent(this.state.category, e);
         if (!r) {
             console.error("FEHLER, aber es sieht keiner :)");
+            this.props.history.push("/");
+            return;
         }
         // TODO: display sucess / failure!
-        this.props.history.push("/");
+        let loadedids = await new FirebaseConnector().getEventIds(this.state.category);
+        for(let id of loadedids) {
+            let event = await new FirebaseConnector().getEvent(this.state.category, id);
+            if(event.title === this.state.title && event.creationDate === creationDate) {
+                this.props.history.push("/category/" + this.state.category + "/event/" + id);
+                return;
+            }
+        }
     }
 
     handleStep0back() {

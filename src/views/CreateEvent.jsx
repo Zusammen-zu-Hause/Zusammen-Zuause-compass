@@ -64,7 +64,7 @@ class CreateEvent extends React.Component {
             institution: "",
             image: "",
             eventLink: "",
-            linkPublic: false,
+            isPublic: false,
         }
 
 
@@ -140,7 +140,7 @@ class CreateEvent extends React.Component {
     };
 
     render() {
-        const { loadedCat, loadedInst, activeStep, title, description, blind, childFriendly, deaf, interactive, physicalDisabled, together, institutionList, categoryList, age, money, moneyMandatory, memberCount, category, institution, image, eventLink, linkPublic } = this.state;
+        const { loadedCat, loadedInst, activeStep, title, description, blind, childFriendly, deaf, interactive, physicalDisabled, together, institutionList, categoryList, age, money, moneyMandatory, memberCount, category, institution, image, eventLink, isPublic } = this.state;
         if (!loadedCat || !loadedInst) {
             return (<CircularProgress className={loadingClass} />);
         }
@@ -313,7 +313,7 @@ class CreateEvent extends React.Component {
                                 />
                                 <div className={moneyRootClass}>
                                     <FormControl className={moneyValueClass} variant="outlined">
-                                        <InputLabel htmlFor="money">Geld</InputLabel>
+                                        <InputLabel htmlFor="money">Preis</InputLabel>
                                         <OutlinedInput
                                             id="money"
                                             value={money}
@@ -325,7 +325,7 @@ class CreateEvent extends React.Component {
                                     <FormControlLabel
                                         className={moneyMandClass}
                                         control={<Checkbox checked={moneyMandatory} name="moneyMandatory" onChange={this.checkboxUpdate} />}
-                                        label="Geld verpflichtend"
+                                        label="Bezahlung optional"
                                     />
                                 </div>
 
@@ -341,7 +341,7 @@ class CreateEvent extends React.Component {
                                 <TextField label="Link zu Icon (optional)" variant="outlined" className="text-field" value={image} onChange={this.valUpdate("image")} fullWidth />
                                 <TextField label="Joinlink (optional)" variant="outlined" className="text-field" value={eventLink} onChange={this.valUpdate("eventLink")} fullWidth />
                                 <FormControlLabel
-                                    control={<Checkbox checked={linkPublic} name="linkPublic" onChange={this.checkboxUpdate} />}
+                                    control={<Checkbox checked={isPublic} name="isPublic" onChange={this.checkboxUpdate} />}
                                     label="Link veröffentlichen"
                                 />
                                 <Button color="secondary" type="submit" variant="outlined" fullWidth className={"text-field " + buttonClass}>Erstellen</Button>
@@ -395,20 +395,39 @@ class CreateEvent extends React.Component {
     async handleStep5(ev) {
         ev.preventDefault();
         // TODO: logo
-        // TODO: institution
-        let e = new Event("",
-            { blind: this.state.blind, childFriendly: this.state.childFriendly, deaf: this.state.deaf, interactive: this.state.interactive, physicalDisabled: this.state.physicalDisabled, together: this.state.together },
-            { min: this.state.age[0], max: this.state.age[1] },
-            new Date().toISOString(),
-            this.state.description,
-            { mandatory: this.state.moneyMandatory, price: this.state.money },
-            { id: this.state.institution, path: "TODO: was macht der path?" },
-            "TODO: bild url",
-            { min: this.state.memberCount[0], max: this.state.memberCount[1] },
-            this.state.date + this.state.time,
-            this.state.shortDesc,
-            this.state.title);
-        let r = await new FirebaseConnector().createEvent(this.state.category, e);
+        const e = new Event(
+                "", // id
+                { 
+                    blind: this.state.blind, 
+                    childFriendly: this.state.childFriendly, 
+                    deaf: this.state.deaf, 
+                    interactive: this.state.interactive, 
+                    physicalDisabled: this.state.physicalDisabled, 
+                    together: this.state.together 
+                }, //
+                { 
+                    min: this.state.age[0], 
+                    max: this.state.age[1] 
+                }, // age
+                new Date().toISOString(), // creationDate
+                this.state.description, // description
+                { 
+                    mandatory: this.state.moneyMandatory, 
+                    price: this.state.money 
+                }, // financial
+                this.state.institution, // institutionId
+                "", // logoSrc
+                { 
+                    min: this.state.memberCount[0], 
+                    max: this.state.memberCount[1] 
+                }, // memberCount
+                this.state.date + this.state.time, // startDate
+                this.state.shortDesc, // shortDescription
+                this.state.isPublic, // isPublic
+                this.state.eventLink, // eventLink
+                this.state.title // title
+            );
+        const r = await new FirebaseConnector().createEvent(this.state.category, e);
         if (!r) {
             console.error("FEHLER, aber es sieht keiner :)");
         }

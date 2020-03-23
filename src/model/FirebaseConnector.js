@@ -62,12 +62,13 @@ export default class FirebaseConnector {
         delete event.id;
         let result = false;
         try {
+            const eventData = Object.assign({}, event);
+            console.warn(eventData);
             let success = await this.database
                 .collection(CATEGORIES)
                 .doc(categoryId)
                 .collection(EVENTS)
-                .doc()
-                .set(Object.assign({}, event));
+                .add(eventData);
             console.log("Success writing event: ", success);
             result = true
         } catch (error) {

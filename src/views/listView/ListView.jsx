@@ -1,13 +1,15 @@
 import * as React from "react";
-import "./css/listView.css"
-import Button from "@material-ui/core/Button";
-import FilterComponent from "./FilterComponent";
+import {
+    Button,
+    LinearProgress
+} from "@material-ui/core";
+
 import FirebaseConnector from "../../model/FirebaseConnector";
+import {Category} from "../../model/model";
 import NavBar from "../../components/NavBar";
 import EventPanel from "./EventPanel";
-import {Category} from "../../model/model";
-import {LinearProgress} from "@material-ui/core";
-import uuid from "react-uuid";
+import FilterComponent from "./FilterComponent";
+import "./css/listView.css";
 
 interface ListViewProps {
     categoryId: string,
@@ -16,7 +18,6 @@ interface ListViewProps {
 
 interface ListViewState {
     showFilterModal: boolean,
-    expandedPanel: string,
     events: Event[],
     category: Category,
     loading: boolean
@@ -27,12 +28,17 @@ export default class ListView extends React.Component<ListViewProps, ListViewSta
 
     constructor(props: ListViewProps) {
         super(props);
-        this.handleFilterShow = this.handleFilterShow.bind(this);
-        this.handleFilterDismiss = this.handleFilterDismiss.bind(this);
+        this.state={
+            showFilterModal: false, 
+            events: [], 
+            category: null, 
+            loading: true
+        };
+
         this.getEvents = this.getEvents.bind(this);
         this.getCategory = this.getCategory.bind(this);
-        this.changeExpandedPanel = this.changeExpandedPanel.bind(this);
-        this.state={showFilterModal: false, expandedPanel: "", events: [], category: null, loading: true};
+        this.handleFilterShow = this.handleFilterShow.bind(this);
+        this.handleFilterDismiss = this.handleFilterDismiss.bind(this);
     }
 
     componentDidMount(): void {
@@ -66,32 +72,37 @@ export default class ListView extends React.Component<ListViewProps, ListViewSta
         this.setState({showFilterModal: false});
     }
 
-    changeExpandedPanel(eventId: string) {
-        if(this.state.expandedPanel === eventId) {
-            this.setState({expandedPanel: ""});
-        } else {
-            this.setState({expandedPanel: eventId});
-        }
-    }
-
     render() {
-
+        const { history } = this.props;
+        const { loading, showFilterModal, events, category } = this.state;
         return(
             <div className={"listView"}>
-                <NavBar history={this.props.history}/>
-                {this.state.loading && <LinearProgress />}
-                {!this.state.loading && <>
-                        <div className={"headerSection"}>
+                <NavBar history={history}/>
+                { loading && <LinearProgress color="secondary" /> }
+                {!loading && <>
+                        <div className="headerSection">
                             <h2 className="headerCategory">
-                                {this.state.category.name}
+                                {category.name}
                             </h2>
-                            <Button className={"buttonRight"} variant="contained" onClick={this.handleFilterShow}>Filter</Button>
+                            <Button 
+                                className="buttonRight" 
+                                variant="contained" 
+                                onClick={this.handleFilterShow}>
+                                Filter
+                            </Button>
                         </div>
-                        <FilterComponent visible={this.state.showFilterModal} dismissCallback={this.handleFilterDismiss}/>
+                        <FilterComponent
+                            visible={showFilterModal} 
+                            dismissCallback={this.handleFilterDismiss}
+                            />
                         <div className={"eventPanels"}>
-                            {this.state.events.map(event => {
+                            {events.map(event => {
                                 return (
-                                    <EventPanel key={uuid()} category={this.state.category} event={event} expanded={this.state.expandedPanel === event.id} callbackOnChange={this.changeExpandedPanel}/>
+                                    <EventPanel 
+                                        key={event.id} 
+                                        category={category} 
+                                        event={event} 
+                                        />
                                 );
                             })}
                         </div>

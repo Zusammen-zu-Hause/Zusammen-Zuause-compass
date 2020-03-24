@@ -2,9 +2,12 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import SignUp from './SignUp';
 import Login from './Login';
+import ForgotPassword from './ForgotPassword';
 import Settings from './settings';
-import { logout,
-  getCurrentUser } from '../../model/firebase_auth';
+import { 
+  logout,
+  getCurrentUser 
+} from '../../model/firebase_auth';
 
 function Logout() {
   logout();
@@ -13,7 +16,6 @@ function Logout() {
 
 function Account() {
   const user = getCurrentUser();
-  console.log(user);
   const SETTINGS = () => {
     if (user)
       return <Settings />;
@@ -25,6 +27,11 @@ function Account() {
         <Route 
             path='/account/signup' 
             component={SignUp}
+            exact
+            />
+        <Route 
+            path='/account/forgotten' 
+            component={ForgotPassword}
             exact
             />
         <Route 

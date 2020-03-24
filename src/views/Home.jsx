@@ -6,7 +6,6 @@ import  {
 } from '@material-ui/core';
 import CategoriesView from '../components/CategoriesView';
 import NavBar from '../components/NavBar';
-import FirebaseConnector from '../model/FirebaseConnector';
 
 class Home extends React.Component {
 
@@ -15,30 +14,11 @@ class Home extends React.Component {
         this.state = {
             searchQuery: ''
         }
-        this.firebaseConnector = new FirebaseConnector();
-
-        this.loadCategories = this.loadCategories.bind(this);
-    }
-
-    componentDidMount() {
-        this.loadCategories();
-    }
-
-    async loadCategories() {
-        const categoryIds = await this.firebaseConnector.getCategoryIds();
-        const categories = [];
-        for (const categoryId of categoryIds) {
-            const category = await this.firebaseConnector.getCategory(categoryId);
-            categories.push(category);
-        }
-        this.setState({loadingCategories: false, categories});
     }
 
     handleChange = prop => event => {
         this.setState({[prop]: event.target.value });
     };
-
-
 
     render() {
         const { history } = this.props;

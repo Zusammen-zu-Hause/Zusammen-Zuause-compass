@@ -135,9 +135,11 @@ class CreateEvent extends React.Component {
         let ids = await db.getCategoryIds();
         let list: Category[] = [];
         for (const id of ids) {
-            const cat = await db.getCategory(id);
-            if (cat != null) {
-                list.push(cat);
+            if (id !== 'recommended') {
+                const cat = await db.getCategory(id);
+                if (cat != null) {
+                    list.push(cat);
+                }
             }
         }
         await this.setState({

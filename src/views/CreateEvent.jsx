@@ -50,11 +50,24 @@ const toISO = (date, time) => {
     return d.toISOString();
 }
 
+const leadingZeros = (value, places) => {
+    if((value + "").length >= places) {
+        return value + "";
+    }
+    let z = "";
+    for(let i = (value + "").length; i < places; i++) {
+        z += "0";
+    }
+    return z + value;
+}
+
+
 class CreateEvent extends React.Component {
 
 
     constructor(...args) {
         super(...args);
+        let now = new Date();
         this.state = {
             loadedCat: false,
             loadedInst: false,
@@ -62,8 +75,8 @@ class CreateEvent extends React.Component {
             title: "",
             shortDesc: "",
             description: "",
-            date: new Date().toISOString().slice(0, 10),
-            time: new Date().toISOString().slice(11, 16),
+            date: now.getFullYear() + "-" + leadingZeros(now.getMonth() + 1, 2) + "-" + leadingZeros(now.getDate(), 2),
+            time: now.getHours() + ":" + now.getMinutes(),
             blind: false, childFriendly: false, deaf: false, interactive: false, physicalDisabled: false, together: false,
             institutionList: [],
             categoryList: [],

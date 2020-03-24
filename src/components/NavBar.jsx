@@ -12,19 +12,12 @@ import {
 import {getCurrentUser} from '../model/firebase_auth';
 
 class NavBar extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            loadingCategories: true,
-            categories: [],
-            searchQuery: ''
-        }
+    componentDidMount() {
+        this.user = getCurrentUser();
     }
 
     render() {
         const { history } = this.props;
-        const user = getCurrentUser();
         return (
             <AppBar position="static" className="appbar" style={{position: "fixed", top: 0}}>
                 <Toolbar>
@@ -32,7 +25,7 @@ class NavBar extends React.Component {
                         Zusammen zu Hause
                     </Typography>
                     <Button color="secondary" variant="contained" onClick={() => history.push('/new')}>Erstelle ein Event</Button>
-                    { user ? (
+                    { this.user ? (
                         <>
                             <IconButton color="inherit" onClick={() => history.push('/account/settings')}><Settings /></IconButton>
                             <Button color="inherit" onClick={() => history.push('/account/logout')}>Logout</Button>

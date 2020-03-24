@@ -104,6 +104,7 @@ class Login extends React.Component {
                                 Anmelden
                             </Button>
                         </form>
+                        <Typography className="text"><Link to="/account/forgotten" push="true">Passwort vergessen?</Link></Typography>
                         <hr />
                         <Typography className="text">Noch kein Mitglied? <Link to="/account/signup" push="true">Registrieren</Link></Typography>
                     </div>

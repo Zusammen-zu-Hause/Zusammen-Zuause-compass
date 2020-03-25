@@ -1,7 +1,8 @@
 # Zusammen Zuhause
 
-Zusammen Zuhause is a web application for collecting and offering online events for everyone staying at home (alone).  :computer:
-:house: The project was initiated as part of the [\#WirvsVirus hackathon](https://www.bundesregierung.de/breg-de/themen/coronavirus/wir-vs-virus-1731968).
+Zusammen Zuhause is a web application for collecting and offering online events for everyone staying at home (alone).  :house: :computer:
+
+The project was initiated as part of the [\#WirvsVirus hackathon](https://www.bundesregierung.de/breg-de/themen/coronavirus/wir-vs-virus-1731968).
 
 ## Installation
 
@@ -11,7 +12,7 @@ After clonining the project, use the package manager [npm](https://www.npmjs.com
 npm install
 ```
 
-**To contribute to our project, you need a valid _Firebase config_ in the root folder. Please get in contact or set up your own firebase environment.**
+**To complete the installation, you need a valid _Firebase config_.** Please get in contact or set up your own firebase environment.
 
 Add `FirebaseConfig.js` to the `src\` folder of the project.
 

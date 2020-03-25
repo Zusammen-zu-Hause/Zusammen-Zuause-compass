@@ -15,14 +15,15 @@ class SettingView extends React.Component {
         this.state = {
             name: ''
         };
+        this.user = getCurrentUser();
 
         this.loadUser = this.loadUser.bind(this);
         this.save = this.save.bind(this);
+        this.sendEmailVerification = this.sendEmailVerification.bind(this);
     }
 
     componentDidMount() {
-        const user = getCurrentUser();
-        this.userDoc = firebaseFirestore().collection('users').doc(user.uid);
+        this.userDoc = firebaseFirestore().collection('users').doc(this.user.uid);
         this.loadUser();
     }
 
@@ -39,6 +40,10 @@ class SettingView extends React.Component {
         });
         await this.userDoc.update({ name: name });
     };
+
+    sendEmailVerification() {
+        this.user.sendEmailVerification()
+    }
 
     textController = name => event => {
         this.setState({ [name]: event.target.value });
@@ -73,6 +78,15 @@ class SettingView extends React.Component {
                         >
                             Speichern
                         </Button>
+                        { !this.user.emailVerified && <Button
+                            className="text-field"
+                            color="secondary"
+                            variant="outlined"
+                            onClick={this.sendEmailVerification}
+                            fullWidth
+                        >
+                            Email bestätigen
+                         </Button> }
                         <Button
                             className="text-field"
                             color="secondary"

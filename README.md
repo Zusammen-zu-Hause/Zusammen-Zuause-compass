@@ -43,10 +43,10 @@ For any changes, please **open an issue first** to discuss what you would like t
 Please make sure to update tests as appropriate.
 
 ## License
+
+*-WIP-*
 <!--- [MIT](https://choosealicense.com/licenses/mit/)-->
 
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Learn More
 

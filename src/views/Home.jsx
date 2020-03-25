@@ -41,7 +41,7 @@ class Home extends React.Component {
                     <CategoriesView onClick={category => history.push("/category/" + category)} />
                 
                     <Typography variant="h4" className="title">Vorgeschlagen</Typography>
-                    <EventList categoryId="more" limit={5} />
+                    <EventList categoryId="recommended" limit={5} />
                 </div>
                 {/* Under construction stuff */}
                 <div style={{ height: '150px' }}></div>

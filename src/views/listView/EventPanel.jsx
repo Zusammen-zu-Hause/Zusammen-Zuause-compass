@@ -96,9 +96,6 @@ export default class EventPanel extends React.Component<EventPanelProps, EventPa
                             <Typography variant="subtitle1" color="textSecondary">
                                 {moment(event.startDate).format("HH:mm")} Uhr
                             </Typography>
-                            <Typography variant="subtitle1" color="textSecondary">
-                                {event.id}
-                            </Typography>
                         </div>
                         <br/>
                         <Collapse in={expanded} timeout="auto" unmountOnExit className="collapseText">

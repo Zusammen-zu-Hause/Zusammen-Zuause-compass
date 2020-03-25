@@ -19,7 +19,7 @@ Add `FirebaseConfig.js` to the `src\` folder of the project.
 ## Usage
 
 Use [npm](https://www.npmjs.com/package/npm) or [yarn](https://classic.yarnpkg.com/) to run the project.
-Replace `npm` with `yarn` if you. apart from that the commands are the same.
+The following commands are similar using [yarn](https://classic.yarnpkg.com/), just replace `npm` with `yarn`.
 
 ```bash
 npm start

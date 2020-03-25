@@ -1,26 +1,3 @@
-.detailview.background {
-    position: fixed;
-    min-width: 100%;
-    min-height: 100%;
-    left: 0px;
-    top: 0px;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 99;
-}
-
-.detailview.rndimg {
-    position: fixed;
-    background-size: cover;
-    -webkit-filter: blur(25px); /* Safari 6.0 - 9.0 */
-    filter: blur(25px);
-    top: -50px;
-    left: -50px;
-    overflow: hidden;
-    min-width: calc(100% + 100px);
-    min-height: calc(100% + 100px);
-}
-
-
 .detailview.container {
     border: none;
     border-radius: 0px;
@@ -147,17 +124,10 @@
 
 .detailview.button {
     width: 100%;
-    background-color: var(--color-orange);
     border-radius: 0px;
     font-size: 40px;
     line-height: 40px;
     font-weight: bolder;
-    color: white;
-}
-
-.detailview.button:hover {
-    background-color: var(--color-green);
-    color: black;
 }
 
 .detailview.loading {
@@ -170,114 +140,4 @@
     max-height: 20vh;
     left: calc(50% - 10vh);
     top: calc(50% - 10vh);
-    color: var(--color-orange);
-}
-
-
-
-
-
-
-
-
-.bookingview.container {
-    border: none;
-    border-radius: 0px;
-    background: #000000;
-    margin: auto;
-    align-items: center;
-    width: 90vw;
-    max-width: 500px;
-    margin-top: 2vh;
-    margin-bottom: 2vh;
-    padding: 0px;
-    position: relative;
-}
-
-.bookingview.item {
-    border:  none;
-    border-radius: 0px;
-    background: #fff;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 5px;
-    padding-top: 5px;
-    margin: 0;
-    margin-top: 0px;
-    overflow-wrap: break-word;
-}
-
-.bookingview.title {
-    border: none;
-    background: var(--color-orange);
-    padding-bottom: 75px;
-}
-
-.bookingview.close {
-    position: absolute;
-    right: -20px;
-    top: -20px;
-    width: 60px;
-    height: 60px;
-    margin: 0px;
-    padding: 0px;
-    background: var(--color-green);
-    color: #000;
-    border: none;
-}
-
-.bookingview.close * {
-    font-size: 60px;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.bookingview.close:hover {
-    background: rgb(176, 235, 196);
-}
-
-.bookingview.mainname {
-    font-weight: 800;
-    font-size: 48px;
-    color: #fff;
-    line-height: 48px;
-}
-
-.bookingview.button {
-    width: 100%;
-    background-color: var(--color-orange);
-    border-radius: 0px;
-    font-size: 40px;
-    line-height: 40px;
-    font-weight: bolder;
-    color: white;
-}
-
-.bookingview.button:hover {
-    background-color: var(--color-green);
-    color: black;
-}
-
-.bookingview.input {
-    width: 100%;
-    margin-bottom: 10px;
-    margin-top: 10px;
-}
-
-.bookingview.input>* {
-    color: var(--color-orange);
-    border-color: var(--color-orange);
-}
-
-.bookingview.input>* {
-    color: var(--color-orange);
-    border-color: var(--color-orange);
-}
-
-.bookingview.input>*>* {
-    color: var(--color-orange);
-    border-color: var(--color-orange);
-}
-
-.bookingview.input>*>input {
-    color: black;
 }

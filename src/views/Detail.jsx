@@ -183,10 +183,7 @@ class Detail extends React.Component {
             return <Booking category={this.props.category} eventID={this.props.eventID} onClose={this.closeBooking} onSuccess={this.bookingSuccess} onError={this.bookingError} max={this.state.event.memberCount.max}></Booking>;
         } else {
             if (!this.state.eventGot) {
-                return (
-                    <div className={backgroundClass}>
-                        <CircularProgress className={loadingClass} />
-                    </div>);
+                return (<CircularProgress className={loadingClass} color="primary" />);
             } else {
                 return (
                     <>
@@ -238,6 +235,45 @@ class Detail extends React.Component {
                                 </Grid>
                                 {event.isPublic ? (<Button variant="contained" className={buttonClass} onClick={() => this.props.history.push(event.eventLink)}>Beitreten</Button>) : (event.members.length < event.memberCount.max ? <Button variant="contained" className={buttonClass} onClick={this.openBooking}>Buchen</Button> : <Button variant="contained" className={buttonClass} onClick={this.openBooking} disabled>Buchen</Button>)}
                             </Grid>
+                            <Grid item xs={12}>
+                                <Paper className={itemClass}>
+                                    <Typography className={nameClass}>Beschreibung</Typography>
+                                    <Typography className={descClass}>{event.description}</Typography>
+                                </Paper>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Paper className={itemClass}>
+                                    <Typography className={nameClass}>Kurzbeschreibung</Typography>
+                                    <Typography className={descClass}>{event.shortDescription}</Typography>
+                                </Paper>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Paper className={itemClass}>
+                                    <Typography className={nameClass}>Teilnehmer: {event.members.length + "/" + event.memberCount.max}</Typography>
+                                    <LinearProgress variant="buffer" className={event.members.length >= event.memberCount.min ? sliderReachedClass : sliderNotReachedClass} value={slider(event.members.length, 0, event.memberCount.max)} valueBuffer={slider(event.memberCount.min, 0, event.memberCount.max)} />
+                                </Paper>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Paper className={itemClass}>
+                                    <FormControlLabel className={checkboxClass} disabled control={event.additional.blind ? checkedBox : uncheckedBox} label="Blind" /><br />
+                                    <FormControlLabel className={checkboxClass} disabled control={event.additional.deaf ? checkedBox : uncheckedBox} label="Taub" /><br />
+                                    <FormControlLabel className={checkboxClass} disabled control={event.additional.physicalDisabled ? checkedBox : uncheckedBox} label="körperlich behindert" /><br />
+                                    <FormControlLabel className={checkboxClass} disabled control={event.additional.interactive ? checkedBox : uncheckedBox} label="interaktiv" /><br />
+                                    <FormControlLabel className={checkboxClass} disabled control={event.additional.together ? checkedBox : uncheckedBox} label="zusammen" /><br />
+                                </Paper>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Paper className={itemClass}>
+                                    <Typography className={nameClass}>Institution</Typography>
+                                    <Typography className={descClass}>{event.institution}</Typography>
+                                </Paper>
+                            </Grid>
+                            {
+                                event.members.length < event.memberCount.max ?
+                                    <Button className={buttonClass} color="primary" variant="contained" onClick={this.openBooking}>Buchen</Button>
+                                    :
+                                    <Button className={buttonClass} color="primary" variant="contained" onClick={this.openBooking} disabled>Buchen</Button>
+                            }
                         </div>
                     </>
                 );

@@ -169,7 +169,7 @@ class CreateEvent extends React.Component {
     render() {
         const { loadedCat, loadedInst, activeStep, title, shortDesc, description, date, time, blind, childFriendly, deaf, interactive, physicalDisabled, together, institutionList, categoryList, age, money, moneyMandatory, memberCount, category, institution, image, eventLink, isPublic, sending } = this.state;
         if (!loadedCat || !loadedInst) {
-            return (<CircularProgress className={loadingClass} />);
+            return (<CircularProgress className={loadingClass} color="primary" />);
         }
         return (
             <>

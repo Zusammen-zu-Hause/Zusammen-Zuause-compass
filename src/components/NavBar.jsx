@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import  {
     AppBar,
     Button,
@@ -9,14 +10,24 @@ import  {
 import {
     Settings
 } from '@material-ui/icons';
-import {getCurrentUser} from '../model/firebase_auth';
+import {
+    firebaseAuth
+} from '../model/firebase';
 
 class NavBar extends React.Component {
-    componentDidMount() {
-        this.user = getCurrentUser();
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: null
+        }
     }
 
+    componentDidMount() {
+        firebaseAuth().onAuthStateChanged(user => this.setState({user}))
+    }
     render() {
+        const { user } = this.state;
         const { history } = this.props;
         return (
             <AppBar position="static" className="appbar" style={{position: "fixed", top: 0}}>
@@ -25,7 +36,7 @@ class NavBar extends React.Component {
                         Zusammen zu Hause
                     </Typography>
                     <Button color="secondary" variant="contained" onClick={() => history.push('/new')}>Erstelle ein Event</Button>
-                    { this.user ? (
+                    { user ? (
                         <>
                             <IconButton color="inherit" onClick={() => history.push('/account/settings')}><Settings /></IconButton>
                             <Button color="inherit" onClick={() => history.push('/account/logout')}>Logout</Button>
@@ -41,6 +52,10 @@ class NavBar extends React.Component {
             </AppBar>
         );
     }
+}
+
+NavBar.propTypes = {
+    history: PropTypes.any.isRequired
 }
 
 export default NavBar;

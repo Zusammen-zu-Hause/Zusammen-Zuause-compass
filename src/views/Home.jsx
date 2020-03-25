@@ -43,8 +43,15 @@ class Home extends React.Component {
                 <div style={{ height: '150px' }}></div>
                 <div>
                     <Typography variant="h5" style={{ textAlign: 'center' }}>Die Website befindet sich zurzeit noch im Bau. Geplante Events finden sie hier:</Typography>
-                    <div style={{ height: '20px' }}></div>
-                    <iframe title="calendar" src="https://calendar.google.com/calendar/embed?src=rk9prhknpf6f7umukseufkttsg%40group.calendar.google.com&ctz=Europe%2FBerlin" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
+                    <div style={{ height: '20px' }} />
+                    <iframe 
+                        title="calendar" 
+                        src="https://calendar.google.com/calendar/embed?src=rk9prhknpf6f7umukseufkttsg%40group.calendar.google.com&ctz=Europe%2FBerlin" 
+                        width="100%" 
+                        height="600" 
+                        frameBorder="0" 
+                        scrolling="no" 
+                        />
                 </div>
                 {/* Impressum */}
                 <div className="categories center">

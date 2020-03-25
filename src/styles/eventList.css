@@ -1,22 +1,18 @@
-.headerSection {
+.eventlist-container .headerSection {
     width: 60%;
     margin-left: 20%;
     margin-top: 90px;
 }
 
-.buttonRight {
+.eventlist-container .buttonRight {
     display: inline;
     float: right;
 }
 
-.headerCategory {
+.eventlist-container .headerCategory {
     display: inline;
 }
 
-.eventPanels {
+.eventlist-container .eventPanels {
     margin-top: 30px;
-}
-
-body {
-    overflow: auto!important;
 }

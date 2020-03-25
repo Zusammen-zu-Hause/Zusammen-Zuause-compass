@@ -2,47 +2,62 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Home from './views/Home';
 import Detail from './views/Detail';
-import SignUp from './views/SignUp';
+import ListView from "./views/listView/ListView";
+import Account from './views/account';
+import CreateEvent from './views/CreateEvent';
 import './App.css';
 import Legal from './views/Legal';
 import PrivacyPolicy from "./views/PrivacyPolicy";
 
 function Fallback() {
-  return <Redirect to='/' push />;
+    return <Redirect to='/' push />;
 }
 
-const DETAILVIEW = ({match}) => <Detail category={match.params.categoryId} eventID={match.params.eventId} />;
+class App extends React.Component {
 
-function App() {
-  return (
-    <Switch>
-      <Route
-        path='/'
-        component={Home}
-        exact
-      />
-      <Route path='/legal'
-        component={Legal}
-        exact
-      />
-      <Route path='/legal/privacy-policy'
-        component={PrivacyPolicy}
-        exact
-      />
-      <Route path='/category/:categoryId/event/:eventId'
-        component={DETAILVIEW}
-        exact
-      />
-      <Route 
-        path='/account/signup' 
-        component={SignUp}
-        exact
-        />
-      <Route
-        component={Fallback}
-        />
-    </Switch>
-  );
+    render() {
+        const DETAILVIEW = ({match}) => <Detail category={match.params.categoryId} eventID={match.params.eventId} />;
+        const LISTVIEW = (props) => <ListView categoryId={props.match.params.categoryId} history={props.history} />;
+
+        return (
+            <Switch>
+                <Route
+                    path='/'
+                    component={Home}
+                    exact
+                />
+                <Route path='/legal'
+                        component={Legal}
+                        exact
+                />
+                <Route path='/legal/privacy-policy'
+                        component={PrivacyPolicy}
+                        exact
+                />
+                <Route path='/category/:categoryId/event/:eventId'
+                        component={DETAILVIEW}
+                        exact
+                />
+                <Route
+                    path='/account'
+                    component={Account}
+                />
+                <Route
+                    path='/category/:categoryId'
+                    component={LISTVIEW}
+                />
+                <Route
+                    path='/new'
+                    component={CreateEvent}
+                    exact
+                />
+                <Route
+                    component={Fallback}
+                />
+            </Switch>
+        );
+    }
+
 }
 
 export default App;

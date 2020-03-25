@@ -12,6 +12,7 @@
 .appbar .title {
     flex-grow: 1;
     font-family: 'Baloo 2', 'Roboto', cursive !important;
+    cursor: pointer;
 }
 
 .center {
@@ -55,10 +56,18 @@
     margin: 20px;
 }
 
+.categories a {
+    font-family: 'Montserrat', 'Roboto', sans-serif !important;
+}
+
 .categories .container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+.categories .container .button {
+    margin: 10px;
 }
 
 .categories .title {
@@ -112,9 +121,6 @@
 
 .authbox .stepper {
     padding: 20px 0 10px 0;
-}
-.authbox .button {
-    
 }
 
 .error {

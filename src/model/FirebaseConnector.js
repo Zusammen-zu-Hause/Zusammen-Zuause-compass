@@ -1,13 +1,14 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
-import {Category, Event, Member} from "./model";
+import {Category, Event, Institution, Member} from "./model";
 import {firebaseFirestore} from './firebase';
 
 
 const CATEGORIES = "categories";
 const MEMBERS = "members";
 const EVENTS = "events";
+const INSTITUTION = "institutions";
 
 /*
  * Connection to the firebase database
@@ -36,11 +37,12 @@ export default class FirebaseConnector {
      *            Make sure that all properties have the correct type and are initialised or null.
      * */
     async createCategory(category: Category): boolean {
+        delete category.id;
         let result = false;
         try {
             let success = await this.database
                 .collection(CATEGORIES)
-                .doc(category.id)
+                .doc()
                 .set(Object.assign({}, category));
             console.log("Success creating category: ", success);
             result = true;
@@ -57,28 +59,17 @@ export default class FirebaseConnector {
      *                Make sure that all properties have the correct type and are initialised or null.
      * */
     async createEvent(categoryId: string, event: Event): boolean {
+        delete event.id;
         let result = false;
-        const members = event.members;
-        delete event.members;
         try {
+            const eventData = Object.assign({}, event);
+            console.warn(eventData);
             let success = await this.database
                 .collection(CATEGORIES)
                 .doc(categoryId)
                 .collection(EVENTS)
-                .doc(event.id)
-                .set(Object.assign({}, event));
+                .add(eventData);
             console.log("Success writing event: ", success);
-            for (let member of members) {
-                let success1 = await this.database
-                    .collection(CATEGORIES)
-                    .doc(categoryId)
-                    .collection(EVENTS)
-                    .doc(event.id)
-                    .collection(MEMBERS)
-                    .doc(member.email)
-                    .set(Object.assign({}, members));
-                console.log("Success writing members of event: ", success1);
-            }
             result = true
         } catch (error) {
             console.error("Error writing event: ", error);
@@ -109,6 +100,27 @@ export default class FirebaseConnector {
             console.error("Error creating member document: ", error);
         }
         return result;
+    }
+
+    /*
+    * Creates a new institution in the database.
+    * @institution: is the institution object.
+    *               Make sure that all properties have the correct type and are initialised or null.
+    * */
+    async createInstitution(institution: Institution): boolean {
+        delete institution.id;
+        let result = false;
+        try {
+            let success = await this.database
+                .collection(INSTITUTION)
+                .doc()
+                .set(Object.assign({}, institution));
+            console.log("Success creating institution: ", success);
+            result = true;
+        } catch (error) {
+            console.error("Error writing institution: ", error);
+        }
+        return result
     }
 
     /*
@@ -172,6 +184,25 @@ export default class FirebaseConnector {
     }
 
     /*
+      * Returns all institutions in the database.
+      * */
+    async getInstitutionIds(): Array<string> {
+        const institutions = [];
+        try {
+            let success = await this.database
+                .collection(INSTITUTION)
+                .get();
+            success.forEach((doc) => {
+                institutions.push(doc.id)
+            });
+            console.log("Success getting institutions: ", institutions);
+        } catch (error) {
+            console.error("Error getting institutionss: ", error);
+        }
+        return institutions;
+    }
+
+    /*
      * Returns a specific category (without events) or null if the category does not exist.
      * @categoryId: is the id of the category.
      * */
@@ -181,6 +212,7 @@ export default class FirebaseConnector {
             const doc = await this.database.collection(CATEGORIES).doc(categoryId).get();
             if (doc.exists) {
                 category = doc.data();
+                category.id = doc.id;
                 console.log("Success getting category ", category);
             } else {
                 console.error("No such category!", doc);
@@ -207,7 +239,8 @@ export default class FirebaseConnector {
                 .get();
             if (doc.exists) {
                 event = doc.data();
-                console.log("Success getting event ", event);
+                event.id = doc.id;
+                console.log("Success getting doc ", doc);
             } else {
                 console.error("No such event!", doc);
             }
@@ -245,6 +278,27 @@ export default class FirebaseConnector {
         }
 
         return member;
+    }
+
+    /*
+     * Returns a specific institutionId or null if the institutionId does not exist.
+     * @institutionId: is the id of the institution.
+     * */
+    async getInstitution(institutionId: string): Institution {
+        let institution = null;
+        try {
+            const doc = await this.database.collection(INSTITUTION).doc(institutionId).get();
+            if (doc.exists) {
+                institution = doc.data();
+                institution.id = doc.id;
+                console.log("Success getting institution ", institution);
+            } else {
+                console.error("No such institution!", doc);
+            }
+        } catch (error) {
+            console.error("Error getting institution: ", error);
+        }
+        return institution;
     }
 
 }

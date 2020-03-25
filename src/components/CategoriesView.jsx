@@ -34,8 +34,9 @@ class CategoriesView extends React.Component {
         const categories = [];
         for (const categoryId of categoryIds) {
             const category = await this.firebaseConnector.getCategory(categoryId);
-            console.log("category ----------", category)
-            categories.push(category);
+            if(!category['hidden']) {
+                categories.push(category);
+            }
         }
         this.setState({loadingCategories: false, categories});
     }

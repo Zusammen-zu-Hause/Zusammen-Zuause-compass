@@ -1,0 +1,32 @@
+.card {
+    display: flex;
+    width: 60%;
+    margin: auto;
+    margin-top: 15px;
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+.content {
+    flex: 1 0 auto;
+}
+
+.cover {
+    width: 151px;
+}
+
+.dateAndTime {
+    float: right;
+}
+
+.arrow {
+    float: right;
+}
+
+.collapseText {
+    width: 80%;
+}

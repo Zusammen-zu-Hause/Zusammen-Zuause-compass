@@ -1,0 +1,11 @@
+.filtersection {
+    margin-top: 25px;
+}
+
+.filterline {
+    display: inline;
+}
+
+.filterelement {
+    float: right;
+}

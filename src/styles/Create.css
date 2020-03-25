@@ -1,0 +1,62 @@
+
+.createevent.root {
+    width: 40vw;
+    position: absolute;
+    top: 5vh;
+    left: 30vw;
+}
+
+.createevent.root>form>* {
+    margin-bottom: 10px;
+}
+
+.createevent.timepickers {
+    width: calc(100% - 10px);
+    margin: 5px;
+}
+
+.createevent.moneyroot {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+.createevent.moneyvalue {
+    width: 45%;
+    margin-right: auto;
+}
+
+.createevent.moneymand {
+    width: 45%;
+    margin-left: auto;
+}
+
+.createevent.slider {
+    margin-top: 50px;
+}
+
+.createevent.button {
+    margin-top: 10px;
+}
+
+.createevent.category {
+    min-width: 100%;
+}
+
+.createevent.institution {
+    min-width: 100%;
+}
+
+.createevent.loading {
+    position: absolute;
+    width: 20vh;
+    height: 20vh;
+    min-width: 20vh;
+    min-height: 20vh;
+    max-width: 20vh;
+    max-height: 20vh;
+    left: calc(50% - 10vh);
+    top: calc(50% - 10vh);
+    color: var(--color-orange);
+}

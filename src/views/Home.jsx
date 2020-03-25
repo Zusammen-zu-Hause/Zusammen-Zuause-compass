@@ -1,11 +1,11 @@
 import React from 'react';
-import  {
+import { Link } from 'react-router-dom';
+import {
     TextField,
     Typography
 } from '@material-ui/core';
 import CategoriesView from '../components/CategoriesView';
 import NavBar from '../components/NavBar';
-import FirebaseConnector from '../model/FirebaseConnector';
 
 class Home extends React.Component {
 
@@ -14,30 +14,11 @@ class Home extends React.Component {
         this.state = {
             searchQuery: ''
         }
-        this.firebaseConnector = new FirebaseConnector();
-
-        this.loadCategories = this.loadCategories.bind(this);
-    }
-
-    componentDidMount() {
-        this.loadCategories();
-    }
-
-    async loadCategories() {
-        const categoryIds = await this.firebaseConnector.getCategoryIds();
-        const categories = [];
-        for (const categoryId of categoryIds) {
-            const category = await this.firebaseConnector.getCategory(categoryId);
-            categories.push(category);
-        }
-        this.setState({loadingCategories: false, categories});
     }
 
     handleChange = prop => event => {
-        this.setState({[prop]: event.target.value });
+        this.setState({ [prop]: event.target.value });
     };
-
-
 
     render() {
         const { history } = this.props;
@@ -57,6 +38,24 @@ class Home extends React.Component {
                 <div className="categories">
                     <Typography variant="h4" className="title">Kategorien</Typography>
                     <CategoriesView onClick={category => history.push("/category/" + category)} />
+                </div>
+                {/* Under construction stuff */}
+                <div style={{ height: '150px' }}></div>
+                <div>
+                    <Typography variant="h5" style={{ textAlign: 'center' }}>Die Website befindet sich zurzeit noch im Bau. Geplante Events finden sie hier:</Typography>
+                    <div style={{ height: '20px' }} />
+                    <iframe 
+                        title="calendar" 
+                        src="https://calendar.google.com/calendar/embed?src=rk9prhknpf6f7umukseufkttsg%40group.calendar.google.com&ctz=Europe%2FBerlin" 
+                        width="100%" 
+                        height="600" 
+                        frameBorder="0" 
+                        scrolling="no" 
+                        />
+                </div>
+                {/* Impressum */}
+                <div className="categories center">
+                    <Link to="/legal" push="true">Impressum</Link>
                 </div>
             </>
         );

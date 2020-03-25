@@ -1,34 +1,47 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import  {
     AppBar,
     Button,
+    IconButton,
     Toolbar,
     Typography
 } from '@material-ui/core';
-import {getCurrentUser} from '../model/firebase_auth';
+import {
+    Settings
+} from '@material-ui/icons';
+import {
+    firebaseAuth
+} from '../model/firebase';
 
 class NavBar extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            loadingCategories: true,
-            categories: [],
-            searchQuery: ''
+            user: null
         }
     }
 
+    componentDidMount() {
+        firebaseAuth().onAuthStateChanged(user => this.setState({user}))
+    }
     render() {
+        const { user } = this.state;
         const { history } = this.props;
-        const user = getCurrentUser();
         return (
-            <AppBar position="static" className="appbar">
+            <AppBar position="static" className="appbar" style={{position: "fixed", top: 0}}>
                 <Toolbar>
-                    <Typography variant="h6" className="title">
+                    <Typography onClick={() => history.push('/')} variant="h6" className="title">
                         Zusammen zu Hause
                     </Typography>
                     <Button color="secondary" variant="contained" onClick={() => history.push('/new')}>Erstelle ein Event</Button>
-                    { user ? <></> : (
+                    { user ? (
+                        <>
+                            <IconButton color="inherit" onClick={() => history.push('/account/settings')}><Settings /></IconButton>
+                            <Button color="inherit" onClick={() => history.push('/account/logout')}>Logout</Button>
+                        </>
+                    ) : (
                         <>
                             <Button color="inherit" onClick={() => history.push('/account/login')}>Login</Button>
                             <Button color="inherit" onClick={() => history.push('/account/signup')}>Registrieren</Button>
@@ -39,6 +52,10 @@ class NavBar extends React.Component {
             </AppBar>
         );
     }
+}
+
+NavBar.propTypes = {
+    history: PropTypes.any.isRequired
 }
 
 export default NavBar;

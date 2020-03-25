@@ -1,0 +1,22 @@
+.headerSection {
+    width: 60%;
+    margin-left: 20%;
+    margin-top: 90px;
+}
+
+.buttonRight {
+    display: inline;
+    float: right;
+}
+
+.headerCategory {
+    display: inline;
+}
+
+.eventPanels {
+    margin-top: 30px;
+}
+
+body {
+    overflow: auto!important;
+}

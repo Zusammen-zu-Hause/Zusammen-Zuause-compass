@@ -5,42 +5,53 @@ export class Event {
                 creationDate: string,
                 description: string,
                 financial: { mandatory: boolean, price: string },
-                institution: string,
+                institutionId: string,
                 logoSrc: string,
                 memberCount: { min: number, max: number },
                 startDate: string,
                 shortDescription: string,
-                title: string,
-                members: Array<{ id: string, email: string, name: string }>) {
+                isPublic: boolean,
+                eventLink: String,
+                title: string) {
         this.id = id; //is Id in database
         this.additional = additional;
         this.age = age;
         this.creationDate = creationDate;
         this.description = description;
         this.financial = financial;
-        this.institution = institution;
+        this.institutionId = institutionId;
         this.logoSrc = logoSrc;
         this.memberCount = memberCount;
         this.startDate = startDate;
         this.shortDescription = shortDescription;
         this.title = title;
-        this.members = members;
+        this.isPublic = isPublic;
+        this.eventLink = eventLink;
     }
 
 }
 
 export class Category {
-    constructor(id:string, name: string, link: string, image: string) {
+    constructor(id: string, name: string, link: string, image: string, hidden: string) {
         this.id = id; //is Id in database
         this.name = name;
         this.link = link;
         this.image = image;
+        this.hidden = hidden
     }
 }
 
 export class Member {
     constructor(email: string, name: string) {
         this.email = email; //is Id in database
+        this.name = name;
+    }
+}
+
+
+export class Institution {
+    constructor(id: string, name: string) {
+        this.id = id; //is Id in database
         this.name = name;
     }
 }

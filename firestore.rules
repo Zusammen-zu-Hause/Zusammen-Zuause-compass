@@ -1,0 +1,21 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{document=**} {
+      allow read: if true;
+    }
+    match /users/{userId}  {
+    	allow create, write: if request.auth != null && request.auth.uid == userId;
+    }
+    match /categories/{document=**} {
+      allow read: if true;
+    }
+    match /categories/{categoryId}/event/{document=**} {
+      allow create:  if request.auth != null;
+      // TODO: Allow creator to Edit Event
+    }
+    match /institutions/{document=**} {
+      allow read: if true;
+    }
+  }
+}

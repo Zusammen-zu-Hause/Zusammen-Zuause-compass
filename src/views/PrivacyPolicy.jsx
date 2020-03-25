@@ -12,7 +12,7 @@ class PrivacyPolicy extends React.Component {
                 <NavBar history={history}/>
                 <Box component="span" m={1}>
                     <Container maxWidth="lg" //TODO change below to correct version
-                    >
+                    ><br />
                         <h1>Datenschutzerklärung</h1>
 
                         <p>Wir freuen uns sehr über Ihr Interesse an unserem Unternehmen. Datenschutz hat einen

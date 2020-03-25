@@ -62,18 +62,12 @@
 
 .bookingview.button {
     width: 100%;
-    background-color: var(--color-orange);
     border-radius: 0px;
     font-size: 40px;
     line-height: 40px;
     font-weight: bolder;
-    color: white;
 }
 
-    .bookingview.button:hover {
-        background-color: var(--color-green);
-        color: black;
-    }
 
 .bookingview.input {
     width: 100%;
@@ -120,14 +114,6 @@ Similar to Detail.css:
     margin: 0px;
 }
 
-.bookingview.closeiconspace {
-    float: right;
-    width: 47px;
-    height: 47px;
-    padding: 0px;
-    margin: 0px;
-}
-
 .bookingview.close {
     position: absolute;
     right: -10px;
@@ -139,6 +125,21 @@ Similar to Detail.css:
     background: var(--color-green);
     color: #000;
     border: none;
+}
+
+
+.bookingview.closeicon {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    max-width: 80px;
+    max-height: 80px;
+    min-width: 80px;
+    min-height: 80px;
+    background: url(../views/Cross.png);
+    background-repeat: no-repeat;
+    background-size: 80px 80px;
+    background-position: center;
 }
 
 .bookingview.close:hover {

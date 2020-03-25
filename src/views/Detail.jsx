@@ -170,7 +170,7 @@ class Detail extends React.Component {
             return <Booking category={this.props.category} eventID={this.props.eventID} onClose={this.closeBooking} onSuccess={this.bookingSuccess} onError={this.bookingError} max={this.state.event.memberCount.max}></Booking>;
         } else {
             if (!this.state.eventGot) {
-                return (<CircularProgress className={loadingClass} />);
+                return (<CircularProgress className={loadingClass} color="primary" />);
             } else {
                 return (
                     <>
@@ -222,7 +222,12 @@ class Detail extends React.Component {
                                     <Typography className={descClass}>{event.institution}</Typography>
                                 </Paper>
                             </Grid>
-                            {event.members.length < event.memberCount.max ? <Button variant="contained" className={buttonClass} onClick={this.openBooking}>Buchen</Button> : <Button variant="contained" className={buttonClass} onClick={this.openBooking} disabled>Buchen</Button>}
+                            {
+                                event.members.length < event.memberCount.max ?
+                                    <Button className={buttonClass} color="primary" variant="contained" onClick={this.openBooking}>Buchen</Button>
+                                    :
+                                    <Button className={buttonClass} color="primary" variant="contained" onClick={this.openBooking} disabled>Buchen</Button>
+                            }
                         </Grid>
                     </>
                 );

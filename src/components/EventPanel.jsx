@@ -14,9 +14,9 @@ import {
 } from "@material-ui/icons";
 import moment from "moment";
 import "moment/locale/de";
-import FirebaseConnector from "../../model/FirebaseConnector";
-import {Category, Institution} from "../../model/model";
-import "./css/eventPanel.css";
+import FirebaseConnector from "../model/FirebaseConnector";
+import {Category, Institution} from "../model/model";
+import "../styles/eventPanel.css";
 
 interface EventPanelProps {
     category: Category,
@@ -71,7 +71,7 @@ export default class EventPanel extends React.Component<EventPanelProps, EventPa
         const { category, event } = this.props;
         const { expanded } = this.state;
         return(
-            <Card className="card">
+            <Card className="eventpanel-card">
                 <CardMedia
                     className="cover"
                     image={category.image}

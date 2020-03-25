@@ -1,32 +1,32 @@
-.card {
+.eventpanel-card {
     display: flex;
     width: 60%;
     margin: auto;
     margin-top: 15px;
 }
 
-.details {
+.eventpanel-card .details {
     display: flex;
     flex-direction: column;
     width: 80%;
 }
 
-.content {
+.eventpanel-card .content {
     flex: 1 0 auto;
 }
 
-.cover {
+.eventpanel-card .cover {
     width: 151px;
 }
 
-.dateAndTime {
+.eventpanel-card .dateAndTime {
     float: right;
 }
 
-.arrow {
+.eventpanel-card .arrow {
     float: right;
 }
 
-.collapseText {
+.eventpanel-card .collapseText {
     width: 80%;
 }

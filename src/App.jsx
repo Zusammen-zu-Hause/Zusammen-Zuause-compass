@@ -45,6 +45,7 @@ class App extends React.Component {
                 <Route
                     path='/category/:categoryId'
                     component={LISTVIEW}
+                    exact
                 />
                 <Route
                     path='/new'

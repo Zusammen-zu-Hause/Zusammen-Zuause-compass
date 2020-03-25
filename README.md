@@ -38,14 +38,15 @@ Launches the test runner in the interactive watch mode.<br />
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ## Contributing
-For any changes, please **open an issue first** to discuss what you would like to change. Pull requests are welcome, please use pull requests for merging into master branch.
+Please **open an issue first** to discuss what you would like to change. Pull requests are welcome, please use pull requests for merging into master branch.
 
 Please make sure to update tests as appropriate.
 
-## License
 
-*-WIP-*
-<!--- [MIT](https://choosealicense.com/licenses/mit/)-->
+<!---
+## License
+WIP
+[MIT](https://choosealicense.com/licenses/mit/)-->
 
 
 ## Learn More
@@ -54,28 +55,3 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 You can learn more on how to get started in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
-
-<!---
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify-->

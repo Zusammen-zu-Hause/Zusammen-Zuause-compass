@@ -4,6 +4,10 @@
     --color-green: rgb(152, 202, 169);
 }
 
+body {
+    overflow: auto!important;
+}
+
 .appbar-tile {
     flex-grow: 1;
     font-family: 'Baloo 2', 'Roboto', cursive;

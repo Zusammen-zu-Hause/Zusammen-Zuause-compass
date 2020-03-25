@@ -12,6 +12,7 @@ import Booking from './Booking';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import '../styles/Detail.css';
 import FirebaseConnector from "../model/FirebaseConnector";
+import moment from "moment";
 
 const containerClass = "detailview container";
 const itemClass = "detailview item";
@@ -39,7 +40,11 @@ const slider = (value, MIN, MAX) => (value - MIN) * 100 / (MAX - MIN);
 
 const getPriceStr = (event) => {
     if (event.financial.mandatory) {
-        return event.financial.price + "€";
+        if (event.financial.price > 0) {
+            return event.financial.price + "€";
+        } else {
+            return "Kostenlos";
+        }
     } else if (event.financial.price > 0) {
         return "Spenden in Höhe von " + event.financial.price + "€ erwünscht";
     } else {
@@ -71,6 +76,7 @@ class Detail extends React.Component {
             eventFound: false,
             eventGot: false,
             event: null,
+            institution: null,
             membermails: null,
         };
         this.bookingSuccess = this.bookingSuccess.bind(this);
@@ -131,16 +137,17 @@ class Detail extends React.Component {
                 }
             }
             e.members = mems;
+            let inst = await db.getInstitution(e.institutionId);
 
             await this.setState({
                 eventFound: true,
-                event: e
+                event: e,
+                institution: inst
             });
         }
         await this.setState({
             eventGot: true
         });
-        await this.forceUpdate();
     }
 
     bookingSuccess() {
@@ -160,6 +167,7 @@ class Detail extends React.Component {
 
     render() {
         let event = this.state.event;
+        let institution = this.state.institution;
 
         if (this.state.eventGot && !this.state.eventFound) {
             return (
@@ -184,7 +192,7 @@ class Detail extends React.Component {
                                 <Paper className={titleClass}>
                                     <div className={closeIconSpaceClass}></div>
                                     <Typography className={mainnameClass}>{event.title}</Typography>
-                                    <Typography className={timeClass}>{event.startDate}</Typography>
+                                    <Typography className={timeClass}>{moment(event.startDate).format("dddd,  DD MMMM YYYY, HH:mm")}</Typography>
                                     <Typography className={timeClass}>{event.age.min + "-" + event.age.max + " Jahre (" + (event.additional.childrenFriendly ? "" : "nicht ") + "geeignet für Kinder)"}</Typography>
                                     <Typography className={timeClass}>{getPriceStr(event)}</Typography>
                                 </Paper>
@@ -195,18 +203,14 @@ class Detail extends React.Component {
                                     <Typography className={descClass}>{event.description}</Typography>
                                 </Paper>
                             </Grid>
-                            <Grid item xs={12}>
-                                <Paper className={itemClass}>
-                                    <Typography className={nameClass}>Kurzbeschreibung</Typography>
-                                    <Typography className={descClass}>{event.shortDescription}</Typography>
-                                </Paper>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Paper className={itemClass}>
-                                    <Typography className={nameClass}>Teilnehmer: {event.members.length + "/" + event.memberCount.max}</Typography>
-                                    <LinearProgress variant="buffer" className={event.members.length >= event.memberCount.min ? sliderReachedClass : sliderNotReachedClass} value={slider(event.members.length, 0, event.memberCount.max)} valueBuffer={slider(event.memberCount.min, 0, event.memberCount.max)} />
-                                </Paper>
-                            </Grid>
+                            {!event.isPublic && (
+                                <Grid item xs={12}>
+                                    <Paper className={itemClass}>
+                                        <Typography className={nameClass}>Teilnehmer: {event.members.length + "/" + event.memberCount.max}</Typography>
+                                        <LinearProgress variant="buffer" className={event.members.length >= event.memberCount.min ? sliderReachedClass : sliderNotReachedClass} value={slider(event.members.length, 0, event.memberCount.max)} valueBuffer={slider(event.memberCount.min, 0, event.memberCount.max)} />
+                                    </Paper>
+                                </Grid>
+                            )}
                             <Grid item xs={12}>
                                 <Paper className={itemClass}>
                                     <FormControlLabel className={checkboxClass} disabled control={event.additional.blind ? checkedBox : uncheckedBox} label="Blind" /><br />
@@ -219,10 +223,10 @@ class Detail extends React.Component {
                             <Grid item xs={12}>
                                 <Paper className={itemClass}>
                                     <Typography className={nameClass}>Institution</Typography>
-                                    <Typography className={descClass}>{event.institution}</Typography>
+                                    <Typography className={descClass}>{institution.name}</Typography>
                                 </Paper>
                             </Grid>
-                            {event.members.length < event.memberCount.max ? <Button variant="contained" className={buttonClass} onClick={this.openBooking}>Buchen</Button> : <Button variant="contained" className={buttonClass} onClick={this.openBooking} disabled>Buchen</Button>}
+                            {event.isPublic ? (<Button variant="contained" className={buttonClass} onClick={() => this.props.history.push(event.eventLink)}>Beitreten</Button>) : (event.members.length < event.memberCount.max ? <Button variant="contained" className={buttonClass} onClick={this.openBooking}>Buchen</Button> : <Button variant="contained" className={buttonClass} onClick={this.openBooking} disabled>Buchen</Button>)}
                         </Grid>
                     </>
                 );

@@ -16,7 +16,7 @@ function Fallback() {
 class App extends React.Component {
 
     render() {
-        const DETAILVIEW = ({match}) => <Detail category={match.params.categoryId} eventID={match.params.eventId} />;
+        const DETAILVIEW = (props) => <Detail category={props.match.params.categoryId} eventID={props.match.params.eventId} history={props.history}  />;
         const LISTVIEW = (props) => <ListView categoryId={props.match.params.categoryId} history={props.history} />;
 
         return (

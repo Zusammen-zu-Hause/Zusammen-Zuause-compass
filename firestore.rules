@@ -10,7 +10,7 @@ service cloud.firestore {
     match /categories/{document=**} {
       allow read: if true;
     }
-    match /categories/{categoryId}/event/{document=**} {
+    match /categories/{categoryId}/events/{document=**} {
       allow create:  if request.auth != null;
       // TODO: Allow creator to Edit Event
     }

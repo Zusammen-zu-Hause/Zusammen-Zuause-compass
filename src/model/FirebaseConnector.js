@@ -63,7 +63,6 @@ export default class FirebaseConnector {
         let result = false;
         try {
             const eventData = Object.assign({}, event);
-            console.warn(eventData);
             let success = await this.database
                 .collection(CATEGORIES)
                 .doc(categoryId)

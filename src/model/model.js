@@ -12,7 +12,8 @@ export class Event {
                 shortDescription: string,
                 isPublic: boolean,
                 eventLink: String,
-                title: string) {
+                title: string,
+                creator: string) {
         this.id = id; //is Id in database
         this.additional = additional;
         this.age = age;
@@ -27,6 +28,7 @@ export class Event {
         this.title = title;
         this.isPublic = isPublic;
         this.eventLink = eventLink;
+        this.creator = creator;
     }
 
 }

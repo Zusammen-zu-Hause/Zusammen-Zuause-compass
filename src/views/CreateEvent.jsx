@@ -1,25 +1,39 @@
 import React from 'react';
-import Checkbox from '@material-ui/core/Checkbox';
-import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import { Stepper, Step, StepLabel } from '@material-ui/core/';
-import { Typography } from '@material-ui/core';
-import Slider from '@material-ui/core/Slider';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import InputLabel from '@material-ui/core/InputLabel';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import { Event, Institution, Category } from '../model/model';
-import '../styles/Create.css';
+
+import {
+    Button,
+    Checkbox,
+    CircularProgress,
+    FormControl,
+    FormControlLabel,
+    FormGroup,
+    FormHelperText,
+    FormLabel,
+    InputAdornment,
+    InputLabel,
+    MenuItem,
+    OutlinedInput,
+    Select,
+    Slider,
+    Stepper, 
+    Step, 
+    StepLabel,
+    TextField,
+    Toolbar,
+    Typography
+} from '@material-ui/core';
+
+import { 
+    Event, 
+    Institution, 
+    Category 
+} from '../model/model';
+import {
+    firebaseAuth
+} from '../model/firebase';
 import FirebaseConnector from '../model/FirebaseConnector';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import '../styles/Create.css';
+
 
 const rootClass = "createevent root";
 const timePickersClass = "createevent timepickers";
@@ -76,7 +90,7 @@ class CreateEvent extends React.Component {
             shortDesc: "",
             description: "",
             date: now.getFullYear() + "-" + leadingZeros(now.getMonth() + 1, 2) + "-" + leadingZeros(now.getDate(), 2),
-            time: now.getHours() + ":" + now.getMinutes(),
+            time: now.getHours() + ":" + (now.getMinutes() < 10 ? "0" + now.getMinutes(): now.getMinutes()),
             blind: false, childFriendly: false, deaf: false, interactive: false, physicalDisabled: false, together: false,
             institutionList: [],
             categoryList: [],
@@ -90,6 +104,7 @@ class CreateEvent extends React.Component {
             eventLink: "",
             isPublic: false,
             sending: false,
+            user: null
         }
 
 
@@ -110,6 +125,7 @@ class CreateEvent extends React.Component {
     }
 
     componentDidMount() {
+        firebaseAuth().onAuthStateChanged(user => this.setState({user}))
         this.loadInstitutions();
         this.loadCategorys();
     }
@@ -167,7 +183,20 @@ class CreateEvent extends React.Component {
     };
 
     render() {
-        const { loadedCat, loadedInst, activeStep, title, shortDesc, description, date, time, blind, childFriendly, deaf, interactive, physicalDisabled, together, institutionList, categoryList, age, money, moneyMandatory, memberCount, category, institution, image, eventLink, isPublic, sending } = this.state;
+        const { 
+            activeStep, age, 
+            category, categoryList, 
+            loadedCat, loadedInst, 
+            title, shortDesc, 
+            description, date, 
+            time, blind, 
+            childFriendly, deaf, 
+            interactive, physicalDisabled, 
+            together, institutionList, 
+            money, moneyMandatory, 
+            memberCount, institution, 
+            image, eventLink, 
+            isPublic, sending, user } = this.state;
         if (!loadedCat || !loadedInst) {
             return (<CircularProgress className={loadingClass} color="primary" />);
         }
@@ -213,7 +242,14 @@ class CreateEvent extends React.Component {
                                         }
                                     </Select>
                                 </FormControl>
-                                <Button color="secondary" type="submit" variant="outlined" fullWidth className={"text-field " + buttonClass}>Weiter</Button>
+                                <Button 
+                                    color="secondary" 
+                                    type="submit" 
+                                    variant="outlined" 
+                                    className={"text-field " + buttonClass}
+                                    disabled={!user}
+                                    fullWidth 
+                                    >Weiter</Button>
                             </form>
                         </>)
                     }
@@ -386,37 +422,41 @@ class CreateEvent extends React.Component {
         );
     }
 
-    handleStep0(e) {
+    handleStep0(ev) {
+        ev.preventDefault();
         if (this.state.category.length > 0) {
             this.setState({
                 activeStep: 1
             });
         }
-        e.preventDefault();
+        console.log(this.state.user);
     }
 
-    handleStep1() {
+    handleStep1(ev) {
+        ev.preventDefault();
         this.setState({
             activeStep: 2
         });
     }
 
-    handleStep2() {
+    handleStep2(ev) {
+        ev.preventDefault();
         this.setState({
             activeStep: 3
         });
     }
 
-    handleStep3(e) {
+    handleStep3(ev) {
+        ev.preventDefault();
         if (this.state.institution.length > 0) {
             this.setState({
                 activeStep: 4
             });
         }
-        e.preventDefault();
     }
 
-    handleStep4() {
+    handleStep4(ev) {
+        ev.preventDefault();
         this.setState({
             activeStep: 5
         });
@@ -427,11 +467,11 @@ class CreateEvent extends React.Component {
         if(this.state.sending) {
             return;
         }
-        await this.setState({
+        this.setState({
             sending: true
         });
         let creationDate = new Date().toISOString();
-        const e = new Event(
+        const createdEvent = new Event(
             "", // id
             {
                 blind: this.state.blind,
@@ -461,23 +501,27 @@ class CreateEvent extends React.Component {
             this.state.shortDesc, // shortDescription
             this.state.isPublic, // isPublic
             this.state.eventLink, // eventLink
-            this.state.title // title
+            this.state.title, // title
+            this.state.user.uid // creator
         );
-        const r = await new FirebaseConnector().createEvent(this.state.category, e);
+        const r = await new FirebaseConnector().createEvent(this.state.category, createdEvent);
         if (!r) {
             console.error("FEHLER, aber es sieht keiner :)");
             this.props.history.push("/");
             return;
         }
+        this.props.history.push("/category/" + this.state.category);
+        return ;
         // TODO: display sucess / failure!
-        let loadedids = await new FirebaseConnector().getEventIds(this.state.category);
+        // TODO: Fix #61
+        /* let loadedids = await new FirebaseConnector().getEventIds(this.state.category);
         for(let id of loadedids) {
             let event = await new FirebaseConnector().getEvent(this.state.category, id);
             if(event.title === this.state.title && event.creationDate === creationDate) {
                 this.props.history.push("/category/" + this.state.category + "/event/" + id);
                 return;
             }
-        }
+        } */
     }
 
     handleStep0back() {

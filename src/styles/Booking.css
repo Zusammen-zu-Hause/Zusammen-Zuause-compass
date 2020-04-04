@@ -44,14 +44,14 @@
     border: none;
 }
 
-    .bookingview.close * {
-        font-size: 60px;
-        font-family: Arial, Helvetica, sans-serif;
-    }
+.bookingview.close * {
+    font-size: 60px;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
-    .bookingview.close:hover {
-        background: rgb(176, 235, 196);
-    }
+.bookingview.close:hover {
+    background: rgb(176, 235, 196);
+}
 
 .bookingview.mainname {
     font-weight: 800;
@@ -75,24 +75,24 @@
     margin-top: 10px;
 }
 
-    .bookingview.input > * {
-        color: var(--color-orange);
-        border-color: var(--color-orange);
-    }
+.bookingview.input > * {
+    color: var(--color-orange);
+    border-color: var(--color-orange);
+}
 
-    .bookingview.input > * {
-        color: var(--color-orange);
-        border-color: var(--color-orange);
-    }
+.bookingview.input > * {
+    color: var(--color-orange);
+    border-color: var(--color-orange);
+}
 
-        .bookingview.input > * > * {
-            color: var(--color-orange);
-            border-color: var(--color-orange);
-        }
+.bookingview.input > * > * {
+    color: var(--color-orange);
+    border-color: var(--color-orange);
+}
 
-        .bookingview.input > * > input {
-            color: black;
-        }
+.bookingview.input > * > input {
+    color: black;
+}
 
 /*************
 Similar to Detail.css:

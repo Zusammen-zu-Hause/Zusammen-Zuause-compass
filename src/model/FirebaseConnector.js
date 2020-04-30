@@ -63,7 +63,6 @@ export default class FirebaseConnector {
         let result = false;
         try {
             const eventData = Object.assign({}, event);
-            console.warn(eventData);
             let success = await this.database
                 .collection(CATEGORIES)
                 .doc(categoryId)
@@ -145,7 +144,7 @@ export default class FirebaseConnector {
     async getEventIds(categoryId: string): Array<string> {
         const events = [];
         try {
-            const success1 = await this.database.collection(CATEGORIES).doc(categoryId).collection(EVENTS).get();
+            const success1 = await this.database.collection(CATEGORIES).doc(categoryId).collection(EVENTS).orderBy("startDate", "desc").get();
             console.log("success1",success1);
             success1.forEach(doc => {
                 console.log("Success getting event names: ", doc);

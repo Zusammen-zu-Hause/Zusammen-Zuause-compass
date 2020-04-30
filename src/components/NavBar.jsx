@@ -36,9 +36,9 @@ class NavBar extends React.Component {
                     {/* <img src="logo72.png" alt={"Zusammen Zuhause Logo"} onClick={() => history.push('/')} />; 
                      */}
                     <Typography onClick={() => history.push('/')} variant="h6" className="title">
-                        <img src="logo72.png" alt={"Zusammen Zuhause"} />
-                    </Typography> 
-                    <Button color="secondary" variant="contained" onClick={() => history.push('/new')}>Erstelle ein Event</Button>
+                        Zusammen zu Hause
+                    </Typography>
+                    <Button color="#FFFFFF" variant="contained" onClick={() => history.push('/new')}>Erstelle ein Event</Button>
                     { user ? (
                         <>
                             <IconButton color="inherit" onClick={() => history.push('/account/settings')}><Settings /></IconButton>

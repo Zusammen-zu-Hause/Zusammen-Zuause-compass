@@ -5,7 +5,7 @@ import Fab from '@material-ui/core/Fab';
 import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField';
-import '../styles/Detail.css';
+import '../styles/Booking.css';
 import FirebaseConnector from "../model/FirebaseConnector";
 import * as auth from "../model/firebase_auth";
 /* HOW TO CLOSE: (example from https://stackoverflow.com/questions/52622578/react-component-self-close-on-button-click#answer-52622628)
@@ -44,11 +44,11 @@ class ParentComponent extends React.Component {
 const containerClass = "bookingview container";
 const itemClass = "bookingview item";
 const titleClass = "bookingview item title";
-const closeClass = "detailview close";
-const closeIconClass = "detailview closeicon";
-const closeIconSpaceClass = "detailview closeiconspace";
+const closeClass = "bookingview close";
+const closeIconClass = "bookingview closeicon";
+const closeIconSpaceClass = "bookingview closeiconspace";
 const mainnameClass = "bookingview mainname";
-const buttonClass = "detailview button";
+const buttonClass = "bookingview button";
 const inputClass = "bookingview input";
 
 const emailRegex = new RegExp("(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))");
@@ -93,7 +93,7 @@ class Booking extends React.Component {
                         </Paper>
                     </Grid>
 
-                    <Button variant="contained" className={buttonClass} onClick={this.bookBtn}>Absenden</Button>
+                    <Button variant="contained" className={buttonClass} color="primary" onClick={this.bookBtn}>Absenden</Button>
                 </Grid>
             </>
         );

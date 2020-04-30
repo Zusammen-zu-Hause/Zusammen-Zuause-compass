@@ -8,18 +8,38 @@ import CreateEvent from './views/CreateEvent';
 import './App.css';
 import Legal from './views/Legal';
 import PrivacyPolicy from "./views/PrivacyPolicy";
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
 
 function Fallback() {
     return <Redirect to='/' push />;
 }
 
+const THEME = createMuiTheme({
+    palette: {
+        primary: {
+            main: '#FC5F21',
+            contrastText: '#ffffff'
+        },
+        secondary: {
+            main: '#9CCCAC',
+            contrastText: '#000000'
+        }
+    },
+    status: {
+        danger: 'FC5F21',
+    },
+});
+
+
 class App extends React.Component {
 
     render() {
-        const DETAILVIEW = ({match}) => <Detail category={match.params.categoryId} eventID={match.params.eventId} />;
+        const DETAILVIEW = (props) => <Detail category={props.match.params.categoryId} eventID={props.match.params.eventId} history={props.history}  />;
         const LISTVIEW = (props) => <ListView categoryId={props.match.params.categoryId} history={props.history} />;
 
         return (
+            <MuiThemeProvider theme={THEME}>
             <Switch>
                 <Route
                     path='/'
@@ -55,7 +75,8 @@ class App extends React.Component {
                 <Route
                     component={Fallback}
                 />
-            </Switch>
+                </Switch>
+            </MuiThemeProvider>
         );
     }
 

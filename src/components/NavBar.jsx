@@ -37,7 +37,7 @@ class NavBar extends React.Component {
                      */}
                     <Typography onClick={() => history.push('/')} variant="h6" className="title">
                         <div className="logo">
-                            <img src="logo72.png" alt={"Zusammen Zuhause"} />
+                            <img src="/logo72.png" alt={"Zusammen Zuhause"} />
                             <p>Zusammen zu Hause</p>
                         </div>
                     </Typography>

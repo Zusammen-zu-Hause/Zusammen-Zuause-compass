@@ -14,6 +14,7 @@ import {
     firebaseAuth
 } from '../model/firebase';
 
+
 class NavBar extends React.Component {
 
     constructor(props) {
@@ -32,8 +33,13 @@ class NavBar extends React.Component {
         return (
             <AppBar position="static" className="appbar" style={{position: "fixed", top: 0}}>
                 <Toolbar>
+                    {/* <img src="logo72.png" alt={"Zusammen Zuhause Logo"} onClick={() => history.push('/')} />; 
+                     */}
                     <Typography onClick={() => history.push('/')} variant="h6" className="title">
-                        Zusammen zu Hause
+                        <div className="logo">
+                            <img src="logo72.png" alt={"Zusammen Zuhause"} />
+                            <p>Zusammen zu Hause</p>
+                        </div>
                     </Typography>
                     <Button color="#FFFFFF" variant="contained" onClick={() => history.push('/new')}>Erstelle ein Event</Button>
                     { user ? (
